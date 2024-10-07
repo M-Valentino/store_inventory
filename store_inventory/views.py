@@ -12,7 +12,7 @@ def about(request):
 def inventory(request):
   data = {
         "Name": "Snickers Full Size Chocolate Candy Bar",
-        "UPC": "040000424314"
-
+        "UPC": "040000424314",
+        "Count": 10
     }
   return JsonResponse(data)
