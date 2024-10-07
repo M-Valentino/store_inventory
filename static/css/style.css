@@ -1,0 +1,10 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  color: rgb(44, 66, 96);
+  background-color: aquamarine;
+}
