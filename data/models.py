@@ -8,5 +8,3 @@ class Item(models.Model):
     qty = models.IntegerField()
     date_added = models.DateTimeField(default=timezone.now)
 
-    def __str__(self):
-        return self.name
