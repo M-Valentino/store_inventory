@@ -11,6 +11,6 @@ def about(request):
 
 @require_http_methods(["GET"])
 def inventory(request):
-    items = Item.objects.all().values("name", "upc", "qty")
+    items = Item.objects.all().values("name", "category", "upc", "qty")
     items_list = list(items)
     return JsonResponse(items_list, safe=False)

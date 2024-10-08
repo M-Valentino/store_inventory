@@ -11,6 +11,10 @@ const populateInventoryTable = (inventoryList) => {
     tdName.textContent = product.name;
     tr.appendChild(tdName);
 
+    let tdCategory = document.createElement("td");
+    tdCategory.textContent = product.category;
+    tr.appendChild(tdCategory);
+
     let tdUPC = document.createElement("td");
     tdUPC.textContent = product.upc;
     tr.appendChild(tdUPC);
