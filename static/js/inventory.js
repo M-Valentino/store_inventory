@@ -3,6 +3,10 @@ const populateInventoryTable = (inventoryList) => {
   inventoryList.map((product, index) => {
     let tr = document.createElement("tr");
 
+    let tdNum = document.createElement("td");
+    tdNum.textContent = index;
+    tr.appendChild(tdNum);
+
     let tdName = document.createElement("td");
     tdName.textContent = product.name;
     tr.appendChild(tdName);
