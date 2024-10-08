@@ -8,7 +8,7 @@ def homepage(request):
 def about(request):
   return render(request, 'about.html')
 
-# @require_http_methods(["GET"])
+@require_http_methods(["GET"])
 def inventory(request):
   data = [
     {
