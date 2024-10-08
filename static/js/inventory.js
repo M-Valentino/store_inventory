@@ -15,9 +15,9 @@ const populateInventoryTable = (inventoryList) => {
     tdUPC.textContent = product.upc;
     tr.appendChild(tdUPC);
 
-    let tdCount = document.createElement("td");
-    tdCount.textContent = product.count;
-    tr.appendChild(tdCount);
+    let tdQty = document.createElement("td");
+    tdQty.textContent = product.qty;
+    tr.appendChild(tdQty);
 
     tbody.appendChild(tr);
   });
