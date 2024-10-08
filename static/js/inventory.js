@@ -1,3 +1,24 @@
+const populateInventoryTable = (inventoryList) => {
+  let tbody = document.getElementById("inventoryList");
+  inventoryList.map((product, index) => {
+    let tr = document.createElement("tr");
+
+    let tdName = document.createElement("td");
+    tdName.textContent = product.name;
+    tr.appendChild(tdName);
+
+    let tdUPC = document.createElement("td");
+    tdUPC.textContent = product.upc;
+    tr.appendChild(tdUPC);
+
+    let tdCount = document.createElement("td");
+    tdCount.textContent = product.count;
+    tr.appendChild(tdCount);
+
+    tbody.appendChild(tr);
+  });
+};
+
 const fetchInventory = async () => {
   try {
     const response = await fetch("/inventory", {
@@ -8,9 +29,15 @@ const fetchInventory = async () => {
     }
     const json = await response.json();
     console.log(json);
+    return json;
   } catch (e) {
     console.warn(e);
   }
 };
 
-fetchInventory();
+const handleInventoryDisplay = async () => {
+  const inventoryList = await fetchInventory();
+  populateInventoryTable(inventoryList);
+};
+
+handleInventoryDisplay();

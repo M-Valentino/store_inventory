@@ -23,5 +23,5 @@ urlpatterns = [
     path('', views.homepage),
     path('about/', views.about),
     path('stats/', include('stats.urls')),
-    path('inventory/', views.inventory)
+    path('inventory/', views.inventory, name="inventory")
 ]
