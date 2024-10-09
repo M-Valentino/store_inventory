@@ -29,7 +29,7 @@ h1 {
   margin-left: 0.5rem;
 }
 
-.clear-input {
+#clear-input {
   position: absolute;
   right: 8px;
   /* Positions clear button inside input field */
@@ -45,6 +45,7 @@ h1 {
   cursor: pointer;
   line-height: 1rem;
   transition: 0.25s ease-in;
+  display: none;
 }
 
 .clear-input:hover {

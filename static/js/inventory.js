@@ -79,9 +79,8 @@ function debounce(func, delay) {
 
 const getSearchTerm = () => {
   const searchTerm = document.getElementById("searchInput").value;
-  const searchBy = document.querySelector(
-    'input[name="searchBy"]:checked'
-  ).value;
+  const searchBy =
+    document.querySelector('input[name="searchBy"]:checked').value || "";
   return { searchTerm: searchTerm, searchBy: searchBy };
 };
 
@@ -94,13 +93,27 @@ const handleInventoryDisplay = async () => {
 
 const debouncedHandleInventoryDisplay = debounce(handleInventoryDisplay, 300);
 
+const showOrHideClearButton = () => {
+  const searchInput = document.getElementById("searchInput").value;
+  let clearInput = document.getElementById("clear-input");
+  if (searchInput === "") {
+    clearInput.style.display = "none";
+  } else {
+    clearInput.style.display = "initial";
+  }
+};
+
 const clearSearchInput = () => {
   document.getElementById("searchInput").value = "";
+  showOrHideClearButton();
   debouncedHandleInventoryDisplay();
 };
 
 window.addEventListener("load", function () {
   document.getElementById("searchInput").value = "";
+  document
+    .getElementById("searchInput")
+    .addEventListener("change", showOrHideClearButton);
   handleInventoryDisplay();
 
   const checkboxes = document.querySelectorAll('input[name="category"]');
