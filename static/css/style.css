@@ -19,10 +19,6 @@ h1 {
   margin-left: 1rem;
 }
 
-#site-header {
-  margin-bottom: 0.5rem;
-}
-
 .search-container {
   position: relative;
 }
@@ -63,7 +59,6 @@ h1 {
 .flex-row {
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
 }
 
 .control-container {
@@ -73,10 +68,11 @@ h1 {
   background-color: #fff;
   border-radius: 0.5rem;
   padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .control-container h2 {
-  font-size: 1.125rem;
+  font-size: 1rem;
 }
 
 .category-container {
