@@ -89,6 +89,14 @@ input[type="radio"] {
   display: none;
 }
 
+#sortByBtn {
+  width: 174px;
+}
+
+.sort-by-item {
+  cursor: pointer;
+}
+
 .hover-rows tr:hover {
   box-shadow: inset 0 0 0 0.125rem var(--primary);
   cursor: pointer;
