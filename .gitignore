@@ -1,4 +1,4 @@
-# gitignore source: https://djangowaves.com/tips-tricks/gitignore-for-a-django-project/#
+# gitignore source: https://djangowaves.com/tips-tricks/gitignore-for-a-django-project/ #
 # Django #
 *.log
 *.pot
