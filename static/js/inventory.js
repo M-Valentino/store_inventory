@@ -29,11 +29,15 @@ const populateInventoryTable = (inventoryList) => {
   });
 };
 
-const fetchInventory = async (categories) => {
+const fetchInventory = async (categories, searchTerm) => {
   try {
     const params = new URLSearchParams();
     if (categories.length > 0) {
       params.append("category", categories.join(","));
+    }
+
+    if (searchTerm !== "") {
+      params.append("search", searchTerm);
     }
 
     const response = await fetch(`/inventory?${params.toString()}`, {
@@ -51,7 +55,7 @@ const fetchInventory = async (categories) => {
   }
 };
 
-function getCheckedCategories() {
+const getCheckedCategories =()=> {
   const checkboxes = document.querySelectorAll('input[name="category"]');
   const checkedCategories = [];
 
@@ -74,9 +78,15 @@ function debounce(func, delay) {
   };
 }
 
+const getSearchTerm = () => {
+  const searchTerm = document.getElementById("searchInput").value;
+  return searchTerm;
+}
+
 const handleInventoryDisplay = async () => {
+  const searchTerm = getSearchTerm();
   const checkedCategories = getCheckedCategories();
-  const inventoryList = await fetchInventory(checkedCategories);
+  const inventoryList = await fetchInventory(checkedCategories, searchTerm);
   populateInventoryTable(inventoryList);
 };
 

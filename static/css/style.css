@@ -1,19 +1,45 @@
+body {
+  background-color: var(--light);
+}
 main {
   margin-left: 2rem;
   margin-right: 2rem;
 }
 
-.site-header {
-  height: 10vh;
+h1 {
+  font-size: 1.5rem;
 }
 
-.category-container {
+.site-header {
+  margin-bottom: 1rem;
+}
+
+#searchInput {
+  margin-right: 0.25rem;
+}
+
+.control-container {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.control-container h2 {
+  font-size: 1.125rem;
+}
+
+.flex-row {
   display: flex;
   flex-direction: row;
 }
 
 .category-container div {
   margin-right: 1rem;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--primary);
 }
 
 .hover-rows tr:hover {
@@ -24,6 +50,7 @@ main {
 .table-container {
   height: 80vh;
   overflow-y: scroll;
+  background-color: #fff;
 }
 
 thead th {
