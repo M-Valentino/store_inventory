@@ -57,8 +57,9 @@
           </div>
           <div class="sort-container">
             <h2>Sort By</h2>
-            <div class="btn-group">
+            <div class="dropdown">
               <button
+                id="sortByBtn"
                 type="button"
                 class="btn btn-primary dropdown-toggle"
                 data-toggle="dropdown"
@@ -66,14 +67,45 @@
                 aria-expanded="false"
                 onclick="toggleSortMenu()"
               >
-                Action
+                Name Ascending
               </button>
               <div class="dropdown-menu" id="sortMenu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
+                <div
+                  class="dropdown-item sort-by-item"
+                  data-value="Name Ascending"
+                >
+                  Name Ascending
+                </div>
+                <div
+                  class="dropdown-item sort-by-item"
+                  data-value="Name Descending"
+                >
+                  Name Descending
+                </div>
+                <div
+                  class="dropdown-item sort-by-item"
+                  data-value="UPC Ascending"
+                >
+                  UPC Ascending
+                </div>
+                <div
+                  class="dropdown-item sort-by-item"
+                  data-value="UPC Descending"
+                >
+                  UPC Descending
+                </div>
+                <div
+                  class="dropdown-item sort-by-item"
+                  data-value="QTY Ascending"
+                >
+                  QTY Ascending
+                </div>
+                <div
+                  class="dropdown-item sort-by-item"
+                  data-value="QTY Descending"
+                >
+                  QTY Descending
+                </div>
               </div>
             </div>
           </div>

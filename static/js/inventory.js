@@ -120,15 +120,28 @@ const toggleSortMenu = () => {
   }
 };
 
+const setSort = (currentSort) => {
+  console.log(currentSort);
+  document.getElementById("sortByBtn").innerText = currentSort;
+};
+
 window.addEventListener("load", function () {
   document.getElementById("searchInput").value = "";
-  document
-    .getElementById("searchInput")
-    .addEventListener("change", showOrHideClearButton);
   handleInventoryDisplay();
+});
 
-  const checkboxes = document.querySelectorAll('input[name="category"]');
-  checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", debouncedHandleInventoryDisplay);
+document
+  .getElementById("searchInput")
+  .addEventListener("change", showOrHideClearButton);
+
+document.querySelectorAll(".sort-by-item").forEach((item) => {
+  console.log(1);
+  item.addEventListener("click", function () {
+    setSort(this.getAttribute("data-value"));
   });
+});
+
+const checkboxes = document.querySelectorAll('input[name="category"]');
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener("change", debouncedHandleInventoryDisplay);
 });
