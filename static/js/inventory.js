@@ -36,7 +36,7 @@ const fetchInventory = async (categories, searchTerm) => {
       params.append("category", categories.join(","));
     }
 
-    params.append("search", searchTerm);
+    params.append("searchTerm", searchTerm);
 
     const response = await fetch(`/inventory?${params.toString()}`, {
       method: "GET",

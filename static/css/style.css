@@ -1,6 +1,7 @@
 body {
   background-color: var(--light);
 }
+
 main {
   margin-left: 2rem;
   margin-right: 2rem;
@@ -18,18 +19,20 @@ h1 {
   position: relative;
 }
 
-.search-container input {
+.search-container #searchInput {
   width: 200px;
-  padding-right: 30px; /* Add padding to accommodate the clear button */
+  padding-right: 30px;
+  /* Adds padding to accommodate the clear button */
 }
 
 .search-container button {
-  margin-left: 0.5rem; /* Small space between input and search button */
+  margin-left: 0.5rem;
 }
 
 .clear-input {
   position: absolute;
-  right: 8px; /* Position clear button inside input field */
+  right: 8px;
+  /* Positions clear button inside input field */
   top: 50%;
   transform: translateY(-50%);
   border: none;
@@ -51,7 +54,7 @@ h1 {
 .flex-row {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .control-container {
@@ -65,8 +68,15 @@ h1 {
   font-size: 1.125rem;
 }
 
-.category-container div {
+.category-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.labelAndInput {
   margin-right: 1rem;
+  width: fit-content;
 }
 
 input[type="checkbox"] {

@@ -12,14 +12,14 @@ def about(request):
 @require_http_methods(["GET"])
 def inventory(request):
     categories_param = request.GET.get('category')
-    search_param = request.GET.get('search')
+    search_term = request.GET.get('searchTerm')
 
     categories = [cat.strip() for cat in categories_param.split(',')] if categories_param else []
 
     items = Item.objects.filter(category__in=categories) if categories else Item.objects.all()
     
-    if search_param:
-        items = items.filter(name__icontains=search_param)
+    if search_term != '':
+        items = items.filter(name__icontains=search_term)
 
     items_list = list(items.values("name", "category", "upc", "qty"))
     return JsonResponse(items_list, safe=False)
