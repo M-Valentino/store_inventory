@@ -125,10 +125,24 @@ const setSort = (currentSort) => {
   document.getElementById("sortByBtn").innerText = currentSort;
 };
 
+const determineTableHeight = () => {
+  const headerHeight = document.getElementById("site-header").clientHeight;
+  const bodyHeight = window.innerHeight;
+  // 8 acounts for margin-bottom in the header
+  const availableHeight = bodyHeight - headerHeight - 8;
+
+  document.getElementById("table-container").style.height = availableHeight + "px";
+};
+
 window.addEventListener("load", function () {
+  determineTableHeight();
   document.getElementById("searchInput").value = "";
   handleInventoryDisplay();
 });
+
+window.onresize = function(event) {
+  determineTableHeight();
+};
 
 document
   .getElementById("searchInput")
