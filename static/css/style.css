@@ -107,7 +107,7 @@ input[type="radio"] {
   cursor: pointer;
 }
 
-.hover-rows tr:hover {
+.hover-rows:hover {
   box-shadow: inset 0 0 0 0.125rem var(--primary);
   cursor: pointer;
 }
