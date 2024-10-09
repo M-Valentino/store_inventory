@@ -38,6 +38,7 @@ const fetchInventory = async (categories, searchTermObj) => {
 
     params.append("searchTerm", searchTermObj.searchTerm);
     params.append("searchBy", searchTermObj.searchBy);
+    params.append("sortBy", document.getElementById("sortByBtn").innerHTML);
 
     const response = await fetch(`/inventory?${params.toString()}`, {
       method: "GET",
@@ -121,8 +122,8 @@ const toggleSortMenu = () => {
 };
 
 const setSort = (currentSort) => {
-  console.log(currentSort);
   document.getElementById("sortByBtn").innerText = currentSort;
+  document.getElementById("sortMenu").style.display = "none";
 };
 
 const determineTableHeight = () => {
@@ -131,7 +132,8 @@ const determineTableHeight = () => {
   // 8 acounts for margin-bottom in the header
   const availableHeight = bodyHeight - headerHeight - 8;
 
-  document.getElementById("table-container").style.height = availableHeight + "px";
+  document.getElementById("table-container").style.height =
+    availableHeight + "px";
 };
 
 window.addEventListener("load", function () {
@@ -140,7 +142,7 @@ window.addEventListener("load", function () {
   handleInventoryDisplay();
 });
 
-window.onresize = function(event) {
+window.onresize = function (event) {
   determineTableHeight();
 };
 
@@ -152,6 +154,7 @@ document.querySelectorAll(".sort-by-item").forEach((item) => {
   console.log(1);
   item.addEventListener("click", function () {
     setSort(this.getAttribute("data-value"));
+    debouncedHandleInventoryDisplay();
   });
 });
 
