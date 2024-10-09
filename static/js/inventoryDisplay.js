@@ -5,6 +5,7 @@ const populateInventoryTable = (inventoryList) => {
   inventoryList.map((product, index) => {
     let tr = document.createElement("tr");
     tr.classList.add("hover-rows");
+    tr.onclick = () => openProductDetails(product.upc);
 
     let tdNum = document.createElement("td");
     tdNum.textContent = index + 1;

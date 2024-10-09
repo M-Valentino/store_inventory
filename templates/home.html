@@ -204,7 +204,14 @@
           <tbody id="inventoryList"></tbody>
         </table>
       </div>
+      <section id="productDetailsModal">
+        <div id="underlay"></div>
+        <div class="modalContent">
+          <button class="closeButton">&times;</button>
+        </div>
+      </section>
     </main>
-    <script src="{% static 'js/inventory.js' %}" defer></script>
+    <script src="{% static 'js/inventoryDisplay.js' %}" defer></script>
+    <script src="{% static 'js/productDisplay.js' %}" defer></script>
   </body>
 </html>
