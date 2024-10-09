@@ -109,6 +109,17 @@ const clearSearchInput = () => {
   debouncedHandleInventoryDisplay();
 };
 
+const toggleSortMenu = () => {
+  let sortMenu = document.getElementById("sortMenu");
+  let currentDisplay = window.getComputedStyle(sortMenu).display;
+
+  if (currentDisplay === "none") {
+    sortMenu.style.display = "initial";
+  } else {
+    sortMenu.style.display = "none";
+  }
+};
+
 window.addEventListener("load", function () {
   document.getElementById("searchInput").value = "";
   document

@@ -24,9 +24,7 @@
                   id="searchInput"
                   name="search"
                 />
-                <button id="clear-input" onclick="clearSearchInput()">
-                  X
-                </button>
+                <button id="clear-input" onclick="clearSearchInput()">X</button>
               </div>
               <button
                 class="btn btn-primary"
@@ -54,6 +52,28 @@
                   value="upc"
                 />
                 <label for="productName">UPC</label>
+              </div>
+            </div>
+          </div>
+          <div class="sort-container">
+            <h2>Sort By</h2>
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-primary dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                onclick="toggleSortMenu()"
+              >
+                Action
+              </button>
+              <div class="dropdown-menu" id="sortMenu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
               </div>
             </div>
           </div>
