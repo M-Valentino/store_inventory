@@ -36,9 +36,7 @@ const fetchInventory = async (categories, searchTerm) => {
       params.append("category", categories.join(","));
     }
 
-    if (searchTerm !== "") {
-      params.append("search", searchTerm);
-    }
+    params.append("search", searchTerm);
 
     const response = await fetch(`/inventory?${params.toString()}`, {
       method: "GET",
@@ -55,7 +53,7 @@ const fetchInventory = async (categories, searchTerm) => {
   }
 };
 
-const getCheckedCategories =()=> {
+const getCheckedCategories = () => {
   const checkboxes = document.querySelectorAll('input[name="category"]');
   const checkedCategories = [];
 
@@ -67,7 +65,7 @@ const getCheckedCategories =()=> {
 
   console.log("Checked Categories: " + checkedCategories.join(", "));
   return checkedCategories;
-}
+};
 
 function debounce(func, delay) {
   let timeout;
@@ -80,8 +78,8 @@ function debounce(func, delay) {
 
 const getSearchTerm = () => {
   const searchTerm = document.getElementById("searchInput").value;
-  return searchTerm;
-}
+  return searchTerm || "";
+};
 
 const handleInventoryDisplay = async () => {
   const searchTerm = getSearchTerm();
@@ -92,11 +90,17 @@ const handleInventoryDisplay = async () => {
 
 const debouncedHandleInventoryDisplay = debounce(handleInventoryDisplay, 300);
 
-const checkboxes = document.querySelectorAll('input[name="category"]');
-checkboxes.forEach((checkbox) => {
-  checkbox.addEventListener("change", debouncedHandleInventoryDisplay);
-});
+const clearSearchInput = () => {
+  document.getElementById("searchInput").value = "";
+  debouncedHandleInventoryDisplay();
+};
 
 window.addEventListener("load", function () {
+  document.getElementById("searchInput").value = "";
   handleInventoryDisplay();
+
+  const checkboxes = document.querySelectorAll('input[name="category"]');
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", debouncedHandleInventoryDisplay);
+  });
 });

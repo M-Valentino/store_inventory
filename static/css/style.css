@@ -14,8 +14,44 @@ h1 {
   margin-bottom: 1rem;
 }
 
-#searchInput {
-  margin-right: 0.25rem;
+.search-container {
+  position: relative;
+}
+
+.search-container input {
+  width: 200px;
+  padding-right: 30px; /* Add padding to accommodate the clear button */
+}
+
+.search-container button {
+  margin-left: 0.5rem; /* Small space between input and search button */
+}
+
+.clear-input {
+  position: absolute;
+  right: 8px; /* Position clear button inside input field */
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background-color: transparent;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  z-index: 2;
+  color: var(--secondary);
+  cursor: pointer;
+  line-height: 1rem;
+  transition: 0.25s ease-in;
+}
+
+.clear-input:hover {
+  background-color: #00000020;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .control-container {
@@ -27,11 +63,6 @@ h1 {
 
 .control-container h2 {
   font-size: 1.125rem;
-}
-
-.flex-row {
-  display: flex;
-  flex-direction: row;
 }
 
 .category-container div {

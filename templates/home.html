@@ -17,12 +17,17 @@
           <div class="search-container">
             <h2>Search By</h2>
             <div class="flex-row">
-              <input
-                class="form-control"
-                type="text"
-                id="searchInput"
-                name="search"
-              />
+              <div style="position: relative">
+                <input
+                  class="form-control"
+                  type="text"
+                  id="searchInput"
+                  name="search"
+                />
+                <button class="clear-input" onclick="clearSearchInput()">
+                  X
+                </button>
+              </div>
               <button
                 class="btn btn-primary"
                 onclick="debouncedHandleInventoryDisplay()"
