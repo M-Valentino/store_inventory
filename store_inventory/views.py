@@ -11,6 +11,13 @@ def about(request):
 
 @require_http_methods(["GET"])
 def inventory(request):
-    items = Item.objects.all().values("name", "category", "upc", "qty")
+    categories_param = request.GET.get('category')
+
+    if categories_param:
+        categories = [cat.strip() for cat in categories_param.split(',')]  # Split and strip whitespace
+        items = Item.objects.filter(category__in=categories).values("name", "category", "upc", "qty")
+    else:
+        items = Item.objects.all().values("name", "category", "upc", "qty")
+
     items_list = list(items)
     return JsonResponse(items_list, safe=False)

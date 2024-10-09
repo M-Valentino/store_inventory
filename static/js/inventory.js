@@ -1,10 +1,12 @@
 const populateInventoryTable = (inventoryList) => {
   let tbody = document.getElementById("inventoryList");
+  tbody.innerHTML = "";
+
   inventoryList.map((product, index) => {
     let tr = document.createElement("tr");
 
     let tdNum = document.createElement("td");
-    tdNum.textContent = index;
+    tdNum.textContent = index + 1;
     tr.appendChild(tdNum);
 
     let tdName = document.createElement("td");
@@ -27,11 +29,17 @@ const populateInventoryTable = (inventoryList) => {
   });
 };
 
-const fetchInventory = async () => {
+const fetchInventory = async (categories) => {
   try {
-    const response = await fetch("/inventory", {
+    const params = new URLSearchParams();
+    if (categories.length > 0) {
+      params.append("category", categories.join(","));
+    }
+
+    const response = await fetch(`/inventory?${params.toString()}`, {
       method: "GET",
     });
+
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -43,9 +51,42 @@ const fetchInventory = async () => {
   }
 };
 
+function getCheckedCategories() {
+  const checkboxes = document.querySelectorAll('input[name="category"]');
+  const checkedCategories = [];
+
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      checkedCategories.push(checkbox.value);
+    }
+  });
+
+  console.log("Checked Categories: " + checkedCategories.join(", "));
+  return checkedCategories;
+}
+
+function debounce(func, delay) {
+  let timeout;
+  return function (...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), delay);
+  };
+}
+
 const handleInventoryDisplay = async () => {
-  const inventoryList = await fetchInventory();
+  const checkedCategories = getCheckedCategories();
+  const inventoryList = await fetchInventory(checkedCategories);
   populateInventoryTable(inventoryList);
 };
 
-handleInventoryDisplay();
+const debouncedHandleInventoryDisplay = debounce(handleInventoryDisplay, 300);
+
+const checkboxes = document.querySelectorAll('input[name="category"]');
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener("change", debouncedHandleInventoryDisplay);
+});
+
+window.addEventListener("load", function () {
+  handleInventoryDisplay();
+});

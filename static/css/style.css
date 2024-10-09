@@ -7,6 +7,15 @@ main {
   height: 10vh;
 }
 
+.category-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.category-container div {
+  margin-right: 1rem;
+}
+
 .hover-rows tr:hover {
   box-shadow: inset 0 0 0 0.125rem var(--primary);
   cursor: pointer;
