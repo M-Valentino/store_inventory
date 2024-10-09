@@ -29,14 +29,15 @@ const populateInventoryTable = (inventoryList) => {
   });
 };
 
-const fetchInventory = async (categories, searchTerm) => {
+const fetchInventory = async (categories, searchTermObj) => {
   try {
     const params = new URLSearchParams();
     if (categories.length > 0) {
       params.append("category", categories.join(","));
     }
 
-    params.append("searchTerm", searchTerm);
+    params.append("searchTerm", searchTermObj.searchTerm);
+    params.append("searchBy", searchTermObj.searchBy);
 
     const response = await fetch(`/inventory?${params.toString()}`, {
       method: "GET",
@@ -78,7 +79,10 @@ function debounce(func, delay) {
 
 const getSearchTerm = () => {
   const searchTerm = document.getElementById("searchInput").value;
-  return searchTerm || "";
+  const searchBy = document.querySelector(
+    'input[name="searchBy"]:checked'
+  ).value;
+  return { searchTerm: searchTerm, searchBy: searchBy };
 };
 
 const handleInventoryDisplay = async () => {
