@@ -211,25 +211,35 @@
           </button>
           <div class="modalInfo">
             <h1 id="product-name-h1"></h1>
-            <div class="flex-row mb-05r">
-              <div>Category:</div>
-              <select name="categoryChange" id="categoryChange">
-                <option value="Produce">Produce</option>
-                <option value="Dairy">Dairy</option>
-                <option value="Pantry">Pantry</option>
-                <option value="Meat">Meat</option>
-                <option value="Seafood">Seafood</option>
-                <option value="Beverages">Beverages</option>
-                <option value="Frozen">Frozen</option>
-              </select>
-            </div>
-            <div class="flex-row mb-05r">
-              <div>UPC:</div>
-              <input type="text" id="upcUpdate" name="upcUpdate" />
-            </div>
-            <div class="flex-row mb-05r">
-              <div>QTY:</div>
-              <input type="text" id="qtyUpdate" name="qtyUpdate" />
+
+            <div class="modal-block">
+              <h2>Basic Info</h2>
+              <div class="flex-row justify-between mb-05r">
+                <div>Category:</div>
+                <select name="categoryChange" id="categoryChange">
+                  <option value="Produce">Produce</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Pantry">Pantry</option>
+                  <option value="Meat">Meat</option>
+                  <option value="Seafood">Seafood</option>
+                  <option value="Beverages">Beverages</option>
+                  <option value="Frozen">Frozen</option>
+                </select>
+              </div>
+              <div class="flex-row mb-05r">
+                <div class="mr-1r">UPC:</div>
+                <input
+                  type="text"
+                  id="upcUpdate"
+                  name="upcUpdate"
+                  class="form-control form-control-sm"
+                />
+              </div>
+              <div class="flex-row mb-05r">
+                <div class="mr-1r">QTY:</div>
+                <div id="qtyUpdate"></div>
+              </div>
+              <buton class="btn btn-primary" onclick="alert(1)">Update</button>
             </div>
           </div>
         </div>
