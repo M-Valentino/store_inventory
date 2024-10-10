@@ -23,6 +23,10 @@ header h1 {
   margin-left: 1rem;
 }
 
+.mb-05r {
+  margin-bottom: 0.5rem;
+}
+
 .search-container {
   position: relative;
 }
