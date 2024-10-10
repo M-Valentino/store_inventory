@@ -209,6 +209,29 @@
           <button class="closeButton" onclick="closeProductDetails()">
             &times;
           </button>
+          <div class="modalInfo">
+            <h1 id="product-name-h1"></h1>
+            <div class="flex-row">
+              <div>Category:</div>
+              <select name="categoryChange" id="categoryChange">
+                <option value="Produce">Produce</option>
+                <option value="Dairy">Dairy</option>
+                <option value="Pantry">Pantry</option>
+                <option value="Meat">Meat</option>
+                <option value="Seafood">Seafood</option>
+                <option value="Beverages">Beverages</option>
+                <option value="Frozen">Frozen</option>
+              </select>
+            </div>
+            <div class="flex-row">
+              <div>UPC:</div>
+              <input type="text" id="upcUpdate" name="upcUpdate" />
+            </div>
+            <div class="flex-row">
+              <div>QTY:</div>
+              <input type="text" id="qtyUpdate" name="qtyUpdate" />
+            </div>
+          </div>
         </div>
       </section>
     </main>

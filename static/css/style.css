@@ -7,8 +7,12 @@ main {
   margin-right: 2rem;
 }
 
-h1 {
+header h1 {
   font-size: 1.5rem;
+}
+
+#product-name-h1 {
+  text-align: center;
 }
 
 .mr-1r {
@@ -153,6 +157,10 @@ thead th {
     0 3.5px 6.2px rgba(0, 0, 0, 0.045),
     0 7.3px 12.8px rgba(0, 0, 0, 0.055),
     0 20px 35px rgba(0, 0, 0, 0.08);
+}
+
+.modalInfo {
+  padding: 3rem;
 }
 
 .closeButton {
