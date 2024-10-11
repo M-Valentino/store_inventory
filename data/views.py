@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
 from data.models import Item
+# TODO remove csrf_exempt when authentication implemented
+from django.views.decorators.csrf import csrf_exempt
 
 def posts_list(request):
   return render(request, 'data/data_list.html')
@@ -38,3 +40,37 @@ def inventory(request):
 
     items_list = list(items.values("name", "category", "upc", "qty"))
     return JsonResponse(items_list, safe=False)
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def basicProductInfo(request):
+    old_upc_param = request.GET.get('oldUpc')
+    new_upc_param = request.GET.get('newUpc')
+    new_category_param = request.GET.get('newCategory')
+
+    try:
+        item = Item.objects.get(upc=old_upc_param)
+    except Item.DoesNotExist:
+        return JsonResponse({"error": "Product with the provided old UPC does not exist."}, status=403)
+
+    if new_upc_param:
+        item.upc = new_upc_param
+
+    if new_category_param:
+        itemWithNewUpcExists = Item.objects.filter(upc=new_upc_param).count()
+        if itemWithNewUpcExists == 0:
+            return JsonResponse({"error": "New UPC already belongs to an existing product."}, status=403)
+        else:
+          item.category = new_category_param
+
+    item.save()
+
+    return JsonResponse({
+        "message": "Item updated successfully",
+        "updated_item": {
+            "name": item.name,
+            "category": item.category,
+            "upc": item.upc,
+            "qty": item.qty
+        }
+    }, safe=False)
