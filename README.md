@@ -2,11 +2,17 @@
 
 ## Setup
 
-After cloning the repo, navigate to the repo folder in your terminal.
-Next, create a virtual environment:
+First, create a virtual environment:
 ```sh
 $ python -m venv myworld
 ```
+
+You must then activate the evironment by running:
+```sh
+$ source myworld/bin/activate
+```
+
+Navigate to the directory of the enviornment and clone the repo.
 
 Then install the dependencies:
 ```sh
