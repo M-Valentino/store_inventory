@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
 from data.models import Item
+import re
 # TODO remove csrf_exempt when authentication implemented
 from django.views.decorators.csrf import csrf_exempt
 
@@ -58,7 +59,10 @@ def basicProductInfo(request):
         if itemWithNewUpcExists > 0:
             return JsonResponse({"message": "New UPC already belongs to an existing product."}, status=403)
         else:
-          item.upc = new_upc_param
+          if re.match(r'^\d{12}$', new_upc_param):
+            item.upc = new_upc_param
+          else:
+              return JsonResponse({"message": "UPCs must be a number 12 digits long."}, status=403)
 
     if new_category_param:
         item.category = new_category_param
