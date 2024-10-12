@@ -51,22 +51,22 @@ def basicProductInfo(request):
     try:
         item = Item.objects.get(upc=old_upc_param)
     except Item.DoesNotExist:
-        return JsonResponse({"error": "Product with the provided old UPC does not exist."}, status=403)
+        return JsonResponse({"message": "Product with the provided old UPC does not exist."}, status=403)
 
     if new_upc_param:
         itemWithNewUpcExists = Item.objects.filter(upc=new_upc_param).count()
-        if itemWithNewUpcExists == 1:
-            return JsonResponse({"error": "New UPC already belongs to an existing product."}, status=403)
+        if itemWithNewUpcExists > 0:
+            return JsonResponse({"message": "New UPC already belongs to an existing product."}, status=403)
         else:
-          item.category = new_upc_param
+          item.upc = new_upc_param
 
     if new_category_param:
-        item.upc = new_category_param
+        item.category = new_category_param
 
     item.save()
 
     return JsonResponse({
-        "message": "Item updated successfully",
+        "message": "success",
         "updated_item": {
             "name": item.name,
             "category": item.category,

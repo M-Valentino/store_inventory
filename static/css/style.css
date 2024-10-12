@@ -207,3 +207,8 @@ thead th {
 .closeButton:hover {
   color: var(--primary);
 }
+
+.errorText {
+  color: var(--danger);
+  font-size: 0.625rem;
+}

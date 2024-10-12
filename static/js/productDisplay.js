@@ -42,14 +42,12 @@ const updateBasicInfo = async () => {
     const response = await fetch(`/data/basicProductInfo/?${params.toString()}`, {
       method: "POST",
     });
-
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
     const json = await response.json();
-    console.log(json);
+
+    if (json.message !== "success") {
+      document.getElementById("basicInfoError").innerHTML = `Error: ${json.message}`;
+    }
     openProductDetails();
-    return json;
   } catch (e) {
     console.warn(e);
   }
