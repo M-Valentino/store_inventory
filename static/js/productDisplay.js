@@ -1,18 +1,20 @@
-let currentProductOriginalDetails = {
+let currProdOriginalBasicInfo = {
   name: "",
   category: "",
   upc: "",
+  qty: "",
 }
 
 const openProductDetails = (name, category, upc, qty) => {
   document.getElementById("productDetailsModal").style.display = "initial";
   document.getElementById("product-name-h1").innerHTML = name;
-  currentProductOriginalDetails.name = name;
+  currProdOriginalBasicInfo.name = name;
   document.getElementById('categoryChange').value = category;
-  currentProductOriginalDetails.category = category;
+  currProdOriginalBasicInfo.category = category;
   document.getElementById('upcUpdate').value = upc;
-  currentProductOriginalDetails.upc = upc;
+  currProdOriginalBasicInfo.upc = upc;
   document.getElementById('qtyUpdate').innerHTML = qty;
+  currProdOriginalBasicInfo.qty = qty;
 };
 
 const closeProductDetails = () => {
@@ -26,14 +28,14 @@ document.getElementById("underlay").addEventListener("click", function () {
 const updateBasicInfo = async () => {
   try {
     const params = new URLSearchParams();
-    const oldUPC = currentProductOriginalDetails.upc;
+    const oldUPC = currProdOriginalBasicInfo.upc;
     const newUPC = document.getElementById('upcUpdate').value;
     params.append("oldUpc", oldUPC);
     if (oldUPC !== newUPC) {
       params.append("newUpc", document.getElementById('upcUpdate').value);
     }
 
-    const oldCategory = currentProductOriginalDetails.category;
+    const oldCategory = currProdOriginalBasicInfo.category;
     const newCategory = document.getElementById('categoryChange').value;
     if (oldCategory !== newCategory) {
       params.append("newCategory", newCategory);
@@ -46,8 +48,16 @@ const updateBasicInfo = async () => {
 
     if (json.message !== "success") {
       document.getElementById("basicInfoError").innerHTML = `Error: ${json.message}`;
+      openProductDetails(
+        currProdOriginalBasicInfo.name, 
+        currProdOriginalBasicInfo.category, 
+        currProdOriginalBasicInfo.upc, 
+        currProdOriginalBasicInfo.qty
+      );
+    } else {
+      document.getElementById("basicInfoError").innerHTML = "";
+      handleInventoryDisplay();
     }
-    openProductDetails();
   } catch (e) {
     console.warn(e);
   }
