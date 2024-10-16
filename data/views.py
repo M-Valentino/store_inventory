@@ -78,3 +78,4 @@ def basicProductInfo(request):
             "qty": item.qty
         }
     }, safe=False)
+
