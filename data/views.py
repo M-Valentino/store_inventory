@@ -5,6 +5,8 @@ from data.models import Item
 import re
 # TODO remove csrf_exempt when authentication implemented
 from django.views.decorators.csrf import csrf_exempt
+import base64
+from urllib.parse import unquote
 
 def posts_list(request):
   return render(request, 'data/data_list.html')
@@ -80,15 +82,31 @@ def basicProductInfo(request):
         }
     }, safe=False)
 
-@require_http_methods(["GET"])
+@csrf_exempt
+@require_http_methods(["GET", "POST"])
 def extendedInfo(request):
-    upc_param = request.GET.get('upc')
+    upc_param = request.POST.get('upc') if request.method == 'POST' else request.GET.get('upc')
 
     try:
         item = Item.objects.get(upc=upc_param)
     except Item.DoesNotExist:
-        return JsonResponse({"message": "Product with the provided old UPC does not exist."}, status=403)
+        return JsonResponse({"message": "Product with the provided UPC does not exist."}, status=404)
+
+    if request.method == 'GET':
+        return JsonResponse({"message": item.description}, status=200)
     
-    item_description = item.description
-    print(item_description)
-    return JsonResponse({"message": item_description})
+    elif request.method == 'POST':
+        encoded_description = request.POST.get('description')
+        if not encoded_description:
+            return JsonResponse({"message": "No description provided."}, status=400)
+
+        try:
+            decoded_description = base64.b64decode(encoded_description).decode('utf-8')
+            decoded_description = unquote(decoded_description)
+        except (ValueError, UnicodeDecodeError):
+            return JsonResponse({"message": "Invalid description encoding."}, status=400)
+
+        item.description = decoded_description
+        item.save()
+        
+        return JsonResponse({"message": "Description updated successfully.", "new_description": item.description}, status=200)

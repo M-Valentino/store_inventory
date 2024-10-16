@@ -3,7 +3,7 @@ let currProdOriginalBasicInfo = {
   category: "",
   upc: "",
   qty: "",
-}
+};
 
 const openProductDetails = async (name, category, upc, qty) => {
   document.getElementById("basicInfoError").innerHTML = "";
@@ -12,15 +12,15 @@ const openProductDetails = async (name, category, upc, qty) => {
   document.getElementById("productDetailsModal").style.display = "initial";
   document.getElementById("product-name-h1").innerHTML = name;
   currProdOriginalBasicInfo.name = name;
-  document.getElementById('categoryChange').value = category;
+  document.getElementById("categoryChange").value = category;
   currProdOriginalBasicInfo.category = category;
-  document.getElementById('upcUpdate').value = upc;
+  document.getElementById("upcUpdate").value = upc;
   currProdOriginalBasicInfo.upc = upc;
-  document.getElementById('qtyUpdate').innerHTML = qty;
+  document.getElementById("qtyUpdate").innerHTML = qty;
   currProdOriginalBasicInfo.qty = qty;
 
   const extendedInfo = await fetchExtendedProductInfo(upc);
-  console.log(extendedInfo)
+  console.log(extendedInfo);
   document.getElementById("productDescription").value = extendedInfo.message;
 };
 
@@ -44,31 +44,36 @@ const updateBasicInfo = async () => {
   try {
     const params = new URLSearchParams();
     const oldUPC = currProdOriginalBasicInfo.upc;
-    const newUPC = document.getElementById('upcUpdate').value;
+    const newUPC = document.getElementById("upcUpdate").value;
     params.append("oldUpc", oldUPC);
     if (oldUPC !== newUPC) {
-      params.append("newUpc", document.getElementById('upcUpdate').value);
+      params.append("newUpc", document.getElementById("upcUpdate").value);
     }
 
     const oldCategory = currProdOriginalBasicInfo.category;
-    const newCategory = document.getElementById('categoryChange').value;
+    const newCategory = document.getElementById("categoryChange").value;
     if (oldCategory !== newCategory) {
       params.append("newCategory", newCategory);
     }
 
-    const response = await fetch(`/data/basicProductInfo/?${params.toString()}`, {
-      method: "POST",
-    });
+    const response = await fetch(
+      `/data/basicProductInfo/?${params.toString()}`,
+      {
+        method: "POST",
+      }
+    );
     const json = await response.json();
 
     if (json.message !== "success") {
       openProductDetails(
-        currProdOriginalBasicInfo.name, 
-        currProdOriginalBasicInfo.category, 
-        currProdOriginalBasicInfo.upc, 
+        currProdOriginalBasicInfo.name,
+        currProdOriginalBasicInfo.category,
+        currProdOriginalBasicInfo.upc,
         currProdOriginalBasicInfo.qty
       );
-      document.getElementById("basicInfoError").innerHTML = `Error: ${json.message}`;
+      document.getElementById(
+        "basicInfoError"
+      ).innerHTML = `Error: ${json.message}`;
     } else {
       document.getElementById("basicInfoError").innerHTML = "";
       handleInventoryDisplay();
@@ -76,11 +81,11 @@ const updateBasicInfo = async () => {
   } catch (e) {
     console.warn(e);
   }
-}
+};
 
 const showAddProductModal = () => {
   document.getElementById("addProductModal").style.display = "initial";
-}
+};
 
 const fetchExtendedProductInfo = async (upc) => {
   try {
@@ -89,6 +94,30 @@ const fetchExtendedProductInfo = async (upc) => {
 
     const response = await fetch(`/data/extendedInfo?${params.toString()}`, {
       method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    return json;
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
+const updateExtendedProductInfo = async () => {
+  const description = document.getElementById("productDescription").value;
+  const upc = currProdOriginalBasicInfo.upc;
+
+  try {
+    const formData = new FormData();
+    formData.append("upc", upc);
+    formData.append("description", btoa(description));
+
+    const response = await fetch(`/data/extendedInfo/`, {
+      method: "POST",
+      body: formData,
     });
 
     if (!response.ok) {
