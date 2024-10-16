@@ -50,6 +50,7 @@
                   id="productUPC"
                   name="searchBy"
                   value="upc"
+                  maxlength="12"
                 />
                 <label for="productName">UPC</label>
               </div>
@@ -250,7 +251,13 @@
               </div>
               <div class="modal-block">
                 <h2>Description</h2>
-                <textarea class="form-control description" id="productDescription" rows="4" cols="50"></textarea>
+                <textarea
+                  class="form-control description"
+                  id="productDescription"
+                  rows="4"
+                  cols="50"
+                  maxlength="300"
+                ></textarea>
               </div>
             </div>
           </div>
@@ -265,20 +272,35 @@
           </button>
           <div class="modalInfo">
             <h1>Add Product</h1>
-            <label for="newProductName">Name</label>
-            <input
-              class="form-control"
-              type="text"
-              id="newProductName"
-              name="newProductName"
-            />
-            <label for="newProductUPC">UPC</label>
-            <input
-              class="form-control"
-              type="text"
-              id="newProductUPC"
-              name="newProductUPC"
-            />
+            <div class="form-group">
+              <label for="newProductName">Name</label>
+              <input
+                class="form-control"
+                type="text"
+                id="newProductName"
+                name="newProductName"
+              />
+            </div>
+            <div class="form-group">
+              <label for="newProductUPC">UPC</label>
+              <input
+                class="form-control"
+                type="text"
+                id="newProductUPC"
+                name="newProductUPC"
+                maxlength="12"
+              />
+            </div>
+            <div class="form-group">
+              <label for="newProductDesc">Description</label>
+              <textarea
+                class="form-control"
+                type="text"
+                id="newProductDesc"
+                name="newProductDesc"
+                maxlength="300"
+              ></textarea>
+            </div>
           </div>
         </div>
       </section>
