@@ -11,7 +11,7 @@ header h1 {
   font-size: 1.5rem;
 }
 
-#product-name-h1 {
+.modalInfo h1 {
   text-align: center;
 }
 
