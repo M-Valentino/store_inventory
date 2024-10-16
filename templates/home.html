@@ -188,10 +188,7 @@
           </div>
         </div>
         <div class="control-container">
-          <button
-            class="btn btn-primary"
-            onclick="showAddProductModal()"
-          >
+          <button class="btn btn-primary" onclick="showAddProductModal()">
             Add Product
           </button>
         </div>
@@ -263,6 +260,20 @@
           </button>
           <div class="modalInfo">
             <h1>Add Product</h1>
+            <label for="newProductName">Name</label>
+            <input
+              class="form-control"
+              type="text"
+              id="newProductName"
+              name="newProductName"
+            />
+            <label for="newProductUPC">UPC</label>
+            <input
+              class="form-control"
+              type="text"
+              id="newProductUPC"
+              name="newProductUPC"
+            />
           </div>
         </div>
       </section>
