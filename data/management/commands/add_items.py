@@ -76,7 +76,8 @@ class Command(BaseCommand):
                 category=item_data['category'],
                 upc=item_data['upc'],
                 qty=item_data['qty'],
-                date_added=timezone.now()
+                date_added=timezone.now(),
+                description=item_data['description']
             )
 
         self.stdout.write(self.style.SUCCESS('Successfully added 20 grocery items to the database.'))

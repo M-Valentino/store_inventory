@@ -27,6 +27,14 @@ header h1 {
   margin-bottom: 0.5rem;
 }
 
+.mw-240 {
+  max-width: 240px;
+}
+
+.mw-480 {
+  max-width: 480px;
+}
+
 .search-container {
   position: relative;
 }
@@ -178,7 +186,6 @@ thead th {
 }
 
 .modal-block {
-  max-width: 240px;
   border: 2px solid var(--light);
   border-radius: 0.5rem;
   padding: 1rem;

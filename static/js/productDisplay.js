@@ -5,7 +5,7 @@ let currProdOriginalBasicInfo = {
   qty: "",
 }
 
-const openProductDetails = (name, category, upc, qty) => {
+const openProductDetails = async (name, category, upc, qty) => {
   document.getElementById("basicInfoError").innerHTML = "";
 
   document.getElementById("productDetailsModal").style.display = "initial";
@@ -17,6 +17,10 @@ const openProductDetails = (name, category, upc, qty) => {
   currProdOriginalBasicInfo.upc = upc;
   document.getElementById('qtyUpdate').innerHTML = qty;
   currProdOriginalBasicInfo.qty = qty;
+
+  const extendedInfo = await fetchExtendedProductInfo(upc);
+  console.log(extendedInfo)
+  document.getElementById("productDescription").textContent = extendedInfo.message;
 };
 
 const closeProductDetails = () => {
@@ -76,3 +80,22 @@ const updateBasicInfo = async () => {
 const showAddProductModal = () => {
   document.getElementById("addProductModal").style.display = "initial";
 }
+
+const fetchExtendedProductInfo = async (upc) => {
+  try {
+    const params = new URLSearchParams();
+    params.append("upc", upc);
+
+    const response = await fetch(`/data/extendedInfo?${params.toString()}`, {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    return json;
+  } catch (e) {
+    console.warn(e);
+  }
+};

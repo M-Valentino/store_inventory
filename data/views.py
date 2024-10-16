@@ -80,3 +80,15 @@ def basicProductInfo(request):
         }
     }, safe=False)
 
+@require_http_methods(["GET"])
+def extendedInfo(request):
+    upc_param = request.GET.get('upc')
+
+    try:
+        item = Item.objects.get(upc=upc_param)
+    except Item.DoesNotExist:
+        return JsonResponse({"message": "Product with the provided old UPC does not exist."}, status=403)
+    
+    item_description = item.description
+    print(item_description)
+    return JsonResponse({"message": item_description})
