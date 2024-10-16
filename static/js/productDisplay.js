@@ -7,6 +7,7 @@ let currProdOriginalBasicInfo = {
 
 const openProductDetails = async (name, category, upc, qty) => {
   document.getElementById("basicInfoError").innerHTML = "";
+  document.getElementById("productDescription").value = "";
 
   document.getElementById("productDetailsModal").style.display = "initial";
   document.getElementById("product-name-h1").innerHTML = name;
@@ -20,7 +21,7 @@ const openProductDetails = async (name, category, upc, qty) => {
 
   const extendedInfo = await fetchExtendedProductInfo(upc);
   console.log(extendedInfo)
-  document.getElementById("productDescription").textContent = extendedInfo.message;
+  document.getElementById("productDescription").value = extendedInfo.message;
 };
 
 const closeProductDetails = () => {
