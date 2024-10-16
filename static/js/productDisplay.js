@@ -23,8 +23,16 @@ const closeProductDetails = () => {
   document.getElementById("productDetailsModal").style.display = "none";
 };
 
-document.getElementById("underlay").addEventListener("click", function () {
+const closeAddProduct = () => {
+  document.getElementById("addProductModal").style.display = "none";
+};
+
+document.getElementById("underlayPD").addEventListener("click", function () {
   closeProductDetails();
+});
+
+document.getElementById("underlayAP").addEventListener("click", function () {
+  closeAddProduct();
 });
 
 const updateBasicInfo = async () => {

@@ -141,7 +141,8 @@ thead th {
   display: none;
 }
 
-#underlay {
+#underlayPD,
+#underlayAP {
   position: absolute;
   left: 0;
   right: 0;
