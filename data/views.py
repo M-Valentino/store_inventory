@@ -101,7 +101,7 @@ def extendedInfo(request):
             return JsonResponse({"message": "No description provided."}, status=400)
 
         try:
-            decoded_description = base64.b64decode(encoded_description).decode('utf-8')
+            decoded_description = base64.b64decode(encoded_description).decode('utf-8') 
             decoded_description = unquote(decoded_description)
         except (ValueError, UnicodeDecodeError):
             return JsonResponse({"message": "Invalid description encoding."}, status=400)

@@ -258,7 +258,10 @@
                   cols="50"
                   maxlength="300"
                 ></textarea>
-                <button class="btn btn-primary" onclick="updateExtendedProductInfo()">
+                <button
+                  class="btn btn-primary"
+                  onclick="updateExtendedProductInfo()"
+                >
                   Update
                 </button>
               </div>
@@ -275,24 +278,38 @@
           </button>
           <div class="modalInfo">
             <h1>Add Product</h1>
-            <div class="form-group">
-              <label for="newProductName">Name</label>
-              <input
-                class="form-control"
-                type="text"
-                id="newProductName"
-                name="newProductName"
-              />
-            </div>
-            <div class="form-group">
-              <label for="newProductUPC">UPC</label>
-              <input
-                class="form-control"
-                type="text"
-                id="newProductUPC"
-                name="newProductUPC"
-                maxlength="12"
-              />
+            <div class="flex-row justify-between">
+              <div class="form-group">
+                <label for="newProductName">Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="newProductName"
+                  name="newProductName"
+                />
+              </div>
+              <div class="form-group">
+                <label for="newProductUPC">UPC</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="newProductUPC"
+                  name="newProductUPC"
+                  maxlength="12"
+                />
+              </div>
+              <div class="form-group">
+                <label for="newProductCategory">Category</label>
+                <select name="newProductCategory" id="newProductCategory" class="w-100">
+                  <option value="Produce">Produce</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Pantry">Pantry</option>
+                  <option value="Meat">Meat</option>
+                  <option value="Seafood">Seafood</option>
+                  <option value="Beverages">Beverages</option>
+                  <option value="Frozen">Frozen</option>
+                </select>
+              </div>
             </div>
             <div class="form-group">
               <label for="newProductDesc">Description</label>
