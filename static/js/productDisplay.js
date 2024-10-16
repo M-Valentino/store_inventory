@@ -6,6 +6,8 @@ let currProdOriginalBasicInfo = {
 }
 
 const openProductDetails = (name, category, upc, qty) => {
+  document.getElementById("basicInfoError").innerHTML = "";
+
   document.getElementById("productDetailsModal").style.display = "initial";
   document.getElementById("product-name-h1").innerHTML = name;
   currProdOriginalBasicInfo.name = name;
@@ -47,13 +49,13 @@ const updateBasicInfo = async () => {
     const json = await response.json();
 
     if (json.message !== "success") {
-      document.getElementById("basicInfoError").innerHTML = `Error: ${json.message}`;
       openProductDetails(
         currProdOriginalBasicInfo.name, 
         currProdOriginalBasicInfo.category, 
         currProdOriginalBasicInfo.upc, 
         currProdOriginalBasicInfo.qty
       );
+      document.getElementById("basicInfoError").innerHTML = `Error: ${json.message}`;
     } else {
       document.getElementById("basicInfoError").innerHTML = "";
       handleInventoryDisplay();
