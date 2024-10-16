@@ -27,12 +27,9 @@ header h1 {
   margin-bottom: 0.5rem;
 }
 
-.mw-240 {
-  max-width: 240px;
-}
-
-.mw-480 {
-  max-width: 480px;
+.mw-260 {
+  min-width: 240px;
+  max-width: 260px;
 }
 
 .search-container {
@@ -223,4 +220,8 @@ thead th {
 .errorText {
   color: var(--danger);
   font-size: 0.625rem;
+}
+
+.description {
+  resize: none;
 }
