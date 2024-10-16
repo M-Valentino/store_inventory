@@ -165,7 +165,8 @@ thead th {
   top: 1rem;
   bottom: 1rem;
   border-radius: 0.5rem;
-  width: 900px;
+  max-width: 900px;
+  height: fit-content;
   margin: auto;
   background-color: #fff;
   z-index: 99;
