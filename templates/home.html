@@ -187,7 +187,14 @@
             </div>
           </div>
         </div>
-        <div class="control-container"></div>
+        <div class="control-container">
+          <button
+            class="btn btn-primary"
+            onclick="showAddProductModal()"
+          >
+            Add Product
+          </button>
+        </div>
       </header>
       <div id="table-container">
         <table class="table table-sm table-striped">
@@ -240,7 +247,54 @@
                 <div id="qtyUpdate"></div>
               </div>
               <div id="basicInfoError" class="errorText"></div>
-              <buton class="btn btn-primary" onclick="updateBasicInfo()">Update</button>
+              <button class="btn btn-primary" onclick="updateBasicInfo()">
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="addProductModal">
+        <div id="underlay"></div>
+        <div class="modalContent">
+          <button class="closeButton" onclick="closeProductDetails()">
+            &times;
+          </button>
+          <div class="modalInfo">
+            <h1 id="product-name-h1"></h1>
+
+            <div class="modal-block">
+              <h2>Basic Info</h2>
+              <div class="flex-row justify-between mb-05r">
+                <div>Category:</div>
+                <select name="categoryChange" id="categoryChange">
+                  <option value="Produce">Produce</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Pantry">Pantry</option>
+                  <option value="Meat">Meat</option>
+                  <option value="Seafood">Seafood</option>
+                  <option value="Beverages">Beverages</option>
+                  <option value="Frozen">Frozen</option>
+                </select>
+              </div>
+              <div class="flex-row mb-05r">
+                <div class="mr-1r">UPC:</div>
+                <input
+                  type="text"
+                  id="upcUpdate"
+                  name="upcUpdate"
+                  class="form-control form-control-sm"
+                />
+              </div>
+              <div class="flex-row mb-05r">
+                <div class="mr-1r">QTY:</div>
+                <div id="qtyUpdate"></div>
+              </div>
+              <div id="basicInfoError" class="errorText"></div>
+              <button class="btn btn-primary" onclick="updateBasicInfo()">
+                Update
+              </button>
             </div>
           </div>
         </div>

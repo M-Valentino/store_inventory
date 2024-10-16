@@ -137,6 +137,10 @@ thead th {
   display: none;
 }
 
+#addProductModal {
+  display: none;
+}
+
 #underlay {
   position: absolute;
   left: 0;

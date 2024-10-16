@@ -64,3 +64,7 @@ const updateBasicInfo = async () => {
     console.warn(e);
   }
 }
+
+const showAddProductModal = () => {
+  document.getElementById("addProductModal").style.display = "initial";
+}
