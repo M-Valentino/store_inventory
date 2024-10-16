@@ -15,6 +15,7 @@ def inventory(request):
     search_term = request.GET.get('searchTerm')
     search_by = request.GET.get('searchBy')
     sort_by = request.GET.get('sortBy')
+    print(sort_by)
 
     categories = [cat.strip() for cat in categories_param.split(',')] if categories_param else []
 
