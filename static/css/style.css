@@ -227,3 +227,10 @@ thead th {
 .description {
   resize: none;
 }
+
+@media only screen and (max-width: 1000px) {
+  main {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
