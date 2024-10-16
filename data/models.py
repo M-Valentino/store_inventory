@@ -7,4 +7,4 @@ class Item(models.Model):
     upc = models.CharField(max_length=12, unique=True)
     qty = models.IntegerField()
     date_added = models.DateTimeField(default=timezone.now)
-
+    description = models.CharField(max_length=300, null=True)
