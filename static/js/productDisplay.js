@@ -75,6 +75,7 @@ const updateBasicInfo = async () => {
         "basicInfoError"
       ).innerHTML = `Error: ${json.message}`;
     } else {
+      makeToast();
       document.getElementById("basicInfoError").innerHTML = "";
       handleInventoryDisplay();
     }
@@ -128,4 +129,16 @@ const updateExtendedProductInfo = async () => {
   } catch (e) {
     console.warn(e);
   }
+};
+
+const makeToast = (message) => {
+  let toast = document.getElementById("toast");
+  let toastMessage = document.getElementById("toastMessage");
+  toastMessage.innerHTML = message;
+  
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+    // Same as toast CSS animation duration
+  }, 3500);
 };
