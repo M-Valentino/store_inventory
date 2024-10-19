@@ -75,6 +75,15 @@ header h1 {
   flex-direction: row;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-col button {
+  align-self: flex-start;
+}
+
 .justify-between {
   justify-content: space-between;
 }

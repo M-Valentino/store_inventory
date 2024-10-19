@@ -7,6 +7,7 @@ let currProdOriginalBasicInfo = {
 
 const openProductDetails = async (name, category, upc, qty) => {
   document.getElementById("basicInfoError").innerHTML = "";
+  document.getElementById("descriptionUpdateError").innerHTML = "";
   document.getElementById("productDescription").value = "";
 
   document.getElementById("productDetailsModal").style.display = "initial";
@@ -128,11 +129,12 @@ const updateExtendedProductInfo = async () => {
     });
 
     if (!response.ok) {
-      descriptionError.innerHTML =
-        response.status;
+      descriptionError.innerHTML = response.status;
     }
     const json = await response.json();
-    if (json.message !== "success") {
+    if (json.message === "success") {
+      makeToast(`Updated ${currProdOriginalBasicInfo.name}`);
+    } else {
       descriptionError.innerHTML = json.message;
     }
 
