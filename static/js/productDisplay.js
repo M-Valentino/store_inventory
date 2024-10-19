@@ -155,3 +155,7 @@ const makeToast = (message) => {
     // Same as toast CSS animation duration
   }, 3500);
 };
+
+const addProduct = async () => {
+  alert(1)
+}
