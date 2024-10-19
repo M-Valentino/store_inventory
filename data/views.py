@@ -106,7 +106,10 @@ def extendedInfo(request):
         except (ValueError, UnicodeDecodeError):
             return JsonResponse({"message": "Invalid description encoding."}, status=400)
 
-        item.description = decoded_description
-        item.save()
+        if len(decoded_description) <= 300:
+            item.description = decoded_description
+            item.save()
+        else:
+            return JsonResponse({"message": "Description is too long."}, status=400)
         
-        return JsonResponse({"message": "Description updated successfully.", "new_description": item.description}, status=200)
+        return JsonResponse({"message": "success", "new_description": item.description}, status=200)
