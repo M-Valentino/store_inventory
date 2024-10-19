@@ -46,7 +46,10 @@ const updateBasicInfo = async () => {
     const oldUPC = currProdOriginalBasicInfo.upc;
     const newUPC = document.getElementById("upcUpdate").value;
     params.append("oldUpc", oldUPC);
-    if (oldUPC !== newUPC) {
+    if (!newUPC.match("/^\d{12}$/")) {
+      document.getElementById("basicInfoError").innerHTML = "UPCs must be a number 12 digits long";
+      return;
+    } else if (oldUPC !== newUPC) {
       params.append("newUpc", document.getElementById("upcUpdate").value);
     }
 
@@ -75,9 +78,10 @@ const updateBasicInfo = async () => {
         "basicInfoError"
       ).innerHTML = `Error: ${json.message}`;
     } else {
-      makeToast();
+      makeToast(`Updated ${currProdOriginalBasicInfo.name}`);
       document.getElementById("basicInfoError").innerHTML = "";
       handleInventoryDisplay();
+      console.log(message)
     }
   } catch (e) {
     console.warn(e);
@@ -133,7 +137,7 @@ const updateExtendedProductInfo = async () => {
 
 const makeToast = (message) => {
   let toast = document.getElementById("toast");
-  let toastMessage = document.getElementById("toastMessage");
+  const toastMessage = document.getElementById("toastMessage");
   toastMessage.innerHTML = message;
   
   toast.style.display = "block";
