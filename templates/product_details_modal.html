@@ -27,6 +27,7 @@
               name="upcUpdate"
               class="form-control form-control-sm"
               maxlength="12"
+              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
             />
           </div>
           <div class="flex-row mb-05r">
