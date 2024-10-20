@@ -7,6 +7,7 @@ import re
 from django.views.decorators.csrf import csrf_exempt
 import base64
 from urllib.parse import unquote
+from django.utils import timezone
 
 def posts_list(request):
   return render(request, 'data/data_list.html')
@@ -113,3 +114,20 @@ def extendedInfo(request):
             return JsonResponse({"message": "Description is too long."}, status=400)
         
         return JsonResponse({"message": "success", "new_description": item.description}, status=200)
+    
+@csrf_exempt
+@require_http_methods(["PUT"])
+def product(request):
+    name_param = request.POST.get('name')
+    upc_param = request.POST.get('upc')
+    category_param = request.POST.get('category')
+    description_param = request.POST.get('description')
+
+    Item.objects.create(
+        name=name_param,
+        category=category_param,
+        upc=upc_param,
+        qty=0,
+        date_added=timezone.now(),
+        description=description_param
+    )
