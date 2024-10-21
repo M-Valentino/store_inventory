@@ -8,3 +8,8 @@ class Item(models.Model):
     qty = models.IntegerField()
     date_added = models.DateTimeField(default=timezone.now)
     description = models.CharField(max_length=300, default="")
+
+class Sale(models.models):
+    product_id = models.IntegerField()
+    sold_qty = models.IntegerField()
+    date_added = models.DateTimeField(default=timezone.now)
