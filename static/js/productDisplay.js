@@ -156,6 +156,51 @@ const makeToast = (message) => {
   }, 3500);
 };
 
+const upcNotValid = (str) => {
+  return !str.match(/^\d{12}$/);
+};
+
 const addProduct = async () => {
-  alert(1)
-}
+  try {
+    const newProductName = document.getElementById("newProductName").value.trim();
+    const newProductUPC = document.getElementById("newProductUPC").value.trim();
+    const newProductCategory = document.getElementById("newProductCategory").value;
+    const newProductDesc = document.getElementById("newProductDesc").value.trim();
+    const basicInfoError = document.getElementById("basicInfoError");
+
+    basicInfoError.innerHTML = "";
+
+    if (!newProductName) {
+      basicInfoError.innerHTML = "Product name is required.";
+      return;
+    }
+    if (upcNotValid(newProductUPC)) {
+      basicInfoError.innerHTML = "UPC must be a 12-digit number.";
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", newProductName);
+    formData.append("upc", newProductUPC);
+    formData.append("category", newProductCategory);
+    formData.append("description", newProductDesc);
+
+    const response = await fetch("/data/product/", {
+      method: "POST",
+      body: formData,
+    });
+
+    const json = await response.json();
+
+    if (json.message !== "success") {
+      basicInfoError.innerHTML = `Error: ${json.message}`;
+    } else {
+      makeToast(`Product ${newProductName} added successfully!`);
+      closeAddProduct();
+      handleInventoryDisplay();
+    }
+  } catch (e) {
+    console.warn(e);
+    document.getElementById("basicInfoError").innerHTML = "An error occurred. Please try again.";
+  }
+};

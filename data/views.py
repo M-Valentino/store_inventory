@@ -116,18 +116,25 @@ def extendedInfo(request):
         return JsonResponse({"message": "success", "new_description": item.description}, status=200)
     
 @csrf_exempt
-@require_http_methods(["PUT"])
+@require_http_methods(["POST"])
 def product(request):
     name_param = request.POST.get('name')
     upc_param = request.POST.get('upc')
     category_param = request.POST.get('category')
     description_param = request.POST.get('description')
 
-    Item.objects.create(
-        name=name_param,
-        category=category_param,
-        upc=upc_param,
-        qty=0,
-        date_added=timezone.now(),
-        description=description_param
-    )
+    if not name_param or not upc_param or len(upc_param) != 12 or not category_param:
+        return JsonResponse({'message': 'Invalid product information'}, status=400)
+
+    try:
+        Item.objects.create(
+            name=name_param,
+            category=category_param,
+            upc=upc_param,
+            qty=0,
+            date_added=timezone.now(),
+            description=description_param
+        )
+        return JsonResponse({'message': 'success'})
+    except Exception as e:
+        return JsonResponse({'message': f'Error: {str(e)}'}, status=500)
