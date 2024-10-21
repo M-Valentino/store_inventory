@@ -125,6 +125,11 @@ def product(request):
 
     if not name_param or not upc_param or len(upc_param) != 12 or not category_param:
         return JsonResponse({'message': 'Invalid product information'}, status=400)
+    
+   
+    itemWithNewUpcExists = Item.objects.filter(upc=upc_param).count()
+    if itemWithNewUpcExists > 0:
+      return JsonResponse({"message": "New UPC already belongs to an existing product."}, status=403)
 
     try:
         Item.objects.create(
