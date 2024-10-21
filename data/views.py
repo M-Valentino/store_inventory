@@ -94,7 +94,7 @@ def extendedInfo(request):
         return JsonResponse({"message": "Product with the provided UPC does not exist."}, status=404)
 
     if request.method == 'GET':
-        return JsonResponse({"message": item.description}, status=200)
+        return JsonResponse({"message": item.description, "id": item.id}, status=200)
     
     elif request.method == 'POST':
         encoded_description = request.POST.get('description')

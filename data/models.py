@@ -9,7 +9,7 @@ class Item(models.Model):
     date_added = models.DateTimeField(default=timezone.now)
     description = models.CharField(max_length=300, default="")
 
-class Sale(models.models):
+class Sale(models.Model):
     product_id = models.IntegerField()
     sold_qty = models.IntegerField()
     date_added = models.DateTimeField(default=timezone.now)

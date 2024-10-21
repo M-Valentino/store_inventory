@@ -1,4 +1,4 @@
-let currProdOriginalBasicInfo = {
+let currProdOriginalInfo = {
   name: "",
   category: "",
   upc: "",
@@ -12,17 +12,17 @@ const openProductDetails = async (name, category, upc, qty) => {
 
   document.getElementById("productDetailsModal").style.display = "initial";
   document.getElementById("product-name-h1").innerHTML = name;
-  currProdOriginalBasicInfo.name = name;
+  currProdOriginalInfo.name = name;
   document.getElementById("categoryChange").value = category;
-  currProdOriginalBasicInfo.category = category;
+  currProdOriginalInfo.category = category;
   document.getElementById("upcUpdate").value = upc;
-  currProdOriginalBasicInfo.upc = upc;
+  currProdOriginalInfo.upc = upc;
   document.getElementById("qtyUpdate").innerHTML = qty;
-  currProdOriginalBasicInfo.qty = qty;
+  currProdOriginalInfo.qty = qty;
 
   const extendedInfo = await fetchExtendedProductInfo(upc);
-  console.log(extendedInfo);
   document.getElementById("productDescription").value = extendedInfo.message;
+  console.log(extendedInfo.id);
 };
 
 const closeProductDetails = () => {
@@ -44,7 +44,7 @@ document.getElementById("underlayAP").addEventListener("click", function () {
 const updateBasicInfo = async () => {
   try {
     const params = new URLSearchParams();
-    const oldUPC = currProdOriginalBasicInfo.upc;
+    const oldUPC = currProdOriginalInfo.upc;
     const newUPC = document.getElementById("upcUpdate").value;
     params.append("oldUpc", oldUPC);
     if (upcNotValid(newUPC)) {
@@ -55,7 +55,7 @@ const updateBasicInfo = async () => {
       params.append("newUpc", document.getElementById("upcUpdate").value);
     }
 
-    const oldCategory = currProdOriginalBasicInfo.category;
+    const oldCategory = currProdOriginalInfo.category;
     const newCategory = document.getElementById("categoryChange").value;
     if (oldCategory !== newCategory) {
       params.append("newCategory", newCategory);
@@ -71,19 +71,18 @@ const updateBasicInfo = async () => {
 
     if (json.message !== "success") {
       openProductDetails(
-        currProdOriginalBasicInfo.name,
-        currProdOriginalBasicInfo.category,
-        currProdOriginalBasicInfo.upc,
-        currProdOriginalBasicInfo.qty
+        currProdOriginalInfo.name,
+        currProdOriginalInfo.category,
+        currProdOriginalInfo.upc,
+        currProdOriginalInfo.qty
       );
       document.getElementById(
         "basicInfoError"
       ).innerHTML = `Error: ${json.message}`;
     } else {
-      makeToast(`Updated ${currProdOriginalBasicInfo.name}`);
+      makeToast(`Updated ${currProdOriginalInfo.name}`);
       document.getElementById("basicInfoError").innerHTML = "";
       handleInventoryDisplay();
-      console.log(message);
     }
   } catch (e) {
     console.warn(e);
@@ -115,7 +114,7 @@ const fetchExtendedProductInfo = async (upc) => {
 
 const updateExtendedProductInfo = async () => {
   const description = document.getElementById("productDescription").value;
-  const upc = currProdOriginalBasicInfo.upc;
+  const upc = currProdOriginalInfo.upc;
   let descriptionError = document.getElementById("descriptionUpdateError");
 
   try {
@@ -133,7 +132,7 @@ const updateExtendedProductInfo = async () => {
     }
     const json = await response.json();
     if (json.message === "success") {
-      makeToast(`Updated ${currProdOriginalBasicInfo.name}`);
+      makeToast(`Updated ${currProdOriginalInfo.name}`);
     } else {
       descriptionError.innerHTML = json.message;
     }

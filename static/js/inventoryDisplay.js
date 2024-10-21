@@ -56,7 +56,6 @@ const fetchInventory = async (categories, searchTermObj) => {
       throw new Error(`Response status: ${response.status}`);
     }
     const json = await response.json();
-    console.log(json);
     return json;
   } catch (e) {
     console.warn(e);
@@ -73,7 +72,6 @@ const getCheckedCategories = () => {
     }
   });
 
-  console.log("Checked Categories: " + checkedCategories.join(", "));
   return checkedCategories;
 };
 
