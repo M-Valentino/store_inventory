@@ -47,7 +47,7 @@ const updateBasicInfo = async () => {
     const oldUPC = currProdOriginalBasicInfo.upc;
     const newUPC = document.getElementById("upcUpdate").value;
     params.append("oldUpc", oldUPC);
-    if (!newUPC.match("/^d{12}$/")) {
+    if (upcNotValid(newUPC)) {
       document.getElementById("basicInfoError").innerHTML =
         "UPCs must be a number 12 digits long";
       return;
