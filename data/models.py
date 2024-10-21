@@ -12,4 +12,4 @@ class Item(models.Model):
 class Sale(models.Model):
     product_id = models.IntegerField()
     sold_qty = models.IntegerField()
-    date_added = models.DateTimeField(default=timezone.now)
+    date_sold = models.DateTimeField(default=timezone.now)

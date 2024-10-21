@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
-from data.models import Item
+from data.models import Item, Sale
 import re
 # TODO remove csrf_exempt when authentication implemented
 from django.views.decorators.csrf import csrf_exempt
@@ -139,6 +139,23 @@ def product(request):
             qty=0,
             date_added=timezone.now(),
             description=description_param
+        )
+        return JsonResponse({'message': 'success'})
+    except Exception as e:
+        return JsonResponse({'message': f'Error: {str(e)}'}, status=500)
+    
+@csrf_exempt
+@require_http_methods(["PUT"])
+def sale(request):
+    id_param = request.PUT.get('id')
+    sold_qty_param = request.PUT.get('soldQty')
+    date_sold_param = request.PUT.get('dateSold')
+
+    try:
+        Sale.objects.create(
+            product_id=id_param,
+            sold_qty=sold_qty_param,
+            date_sold=date_sold_param
         )
         return JsonResponse({'message': 'success'})
     except Exception as e:
