@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 import base64
 from urllib.parse import unquote
 from django.utils import timezone
+import json
 
 def posts_list(request):
   return render(request, 'data/data_list.html')
@@ -147,16 +148,31 @@ def product(request):
 @csrf_exempt
 @require_http_methods(["PUT"])
 def sale(request):
-    id_param = request.PUT.get('id')
-    sold_qty_param = request.PUT.get('soldQty')
-    date_sold_param = request.PUT.get('dateSold')
-
     try:
+        data = json.loads(request.body)
+        id_param = data.get('id')
+        sold_qty_param = int(data.get('soldQty'))
+        date_sold_param = data.get('dateSold')
+
+        current_item = Item.objects.get(id=id_param)
+
+        if current_item.qty < sold_qty_param:
+            return JsonResponse({"message": "Current quantity is too small for the QTY sold."}, status=403)
+
         Sale.objects.create(
             product_id=id_param,
             sold_qty=sold_qty_param,
             date_sold=date_sold_param
         )
+
+        current_item.qty -= sold_qty_param
+        current_item.save()
+
         return JsonResponse({'message': 'success'})
+
+    except Item.DoesNotExist:
+        return JsonResponse({'message': 'Item does not exist'}, status=404)
+    except ValueError:
+        return JsonResponse({'message': 'Invalid quantity provided'}, status=400)
     except Exception as e:
         return JsonResponse({'message': f'Error: {str(e)}'}, status=500)

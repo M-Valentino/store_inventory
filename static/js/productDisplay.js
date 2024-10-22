@@ -3,6 +3,7 @@ let currProdOriginalInfo = {
   category: "",
   upc: "",
   qty: "",
+  id: "",
 };
 
 const openProductDetails = async (name, category, upc, qty) => {
@@ -22,7 +23,7 @@ const openProductDetails = async (name, category, upc, qty) => {
 
   const extendedInfo = await fetchExtendedProductInfo(upc);
   document.getElementById("productDescription").value = extendedInfo.message;
-  console.log(extendedInfo.id);
+  currProdOriginalInfo.id = extendedInfo.id;
 };
 
 const closeProductDetails = () => {
@@ -161,10 +162,15 @@ const upcNotValid = (str) => {
 
 const addProduct = async () => {
   try {
-    const newProductName = document.getElementById("newProductName").value.trim();
+    const newProductName = document
+      .getElementById("newProductName")
+      .value.trim();
     const newProductUPC = document.getElementById("newProductUPC").value.trim();
-    const newProductCategory = document.getElementById("newProductCategory").value;
-    const newProductDesc = document.getElementById("newProductDesc").value.trim();
+    const newProductCategory =
+      document.getElementById("newProductCategory").value;
+    const newProductDesc = document
+      .getElementById("newProductDesc")
+      .value.trim();
     const basicInfoError = document.getElementById("basicInfoError");
 
     basicInfoError.innerHTML = "";
@@ -200,6 +206,52 @@ const addProduct = async () => {
     }
   } catch (e) {
     console.warn(e);
-    document.getElementById("basicInfoError").innerHTML = "An error occurred. Please try again.";
+    document.getElementById("basicInfoError").innerHTML =
+      "An error occurred. Please try again.";
   }
+};
+
+const addSale = () => {
+  const soldQty = document.getElementById("soldQty").value;
+  const dateSold = document.getElementById("dateSold").value;
+
+  if (!soldQty || soldQty < 1) {
+    return;
+  }
+
+  if (!dateSold) {
+    return;
+  }
+
+  const data = {
+    id: currProdOriginalInfo.id,
+    soldQty: soldQty,
+    dateSold: dateSold,
+  };
+
+  fetch("/data/sale/", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.message === "success") {
+        makeToast("Sale Added.");
+        openProductDetails(
+          currProdOriginalInfo.name,
+          currProdOriginalInfo.category,
+          currProdOriginalInfo.upc,
+          currProdOriginalInfo.qty - soldQty
+        );
+        handleInventoryDisplay();
+      } else {
+        console.error(`Error: ${result.message}`);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 };
