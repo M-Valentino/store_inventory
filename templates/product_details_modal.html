@@ -56,32 +56,62 @@
           </button>
         </div>
       </div>
-      <div class="modal-block mw-260">
-        <h2>Add Sale</h2>
-        <div class="flex-row mb-05r">
-          <div class="mr-1r" for="soldQty">QTY:</div>
-          <input
-            type="number"
-            min="1"
-            class="form-control form-control-sm"
-            id="soldQty"
-            name="soldQty"
-            placeholder="1"
-          />
-        </div>
-        <div class="flex-row mb-05r">
-          <div class="mr-1r" for="dateSold">Date:</div>
-          <input
-            type="date"
-            id="dateSold"
-            class="form-control form-control-sm"
-            name="dateSold"
-          />
+      <div class="flex-row">
+        <div class="modal-block mw-260 mr-1r">
+          <h2>Add Sale</h2>
+          <div class="flex-row mb-05r">
+            <div class="mr-1r" for="soldQty">QTY:</div>
+            <input
+              type="number"
+              min="1"
+              class="form-control form-control-sm"
+              id="soldQty"
+              name="soldQty"
+              placeholder="1"
+            />
+          </div>
+          <div class="flex-row mb-05r">
+            <div class="mr-1r" for="dateSold">Date:</div>
+            <input
+              type="date"
+              id="dateSold"
+              class="form-control form-control-sm"
+              name="dateSold"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary" onclick="addSale()">
+            Add Sale
+          </button>
         </div>
 
-        <button type="submit" class="btn btn-primary" onclick="addSale()">
-          Submit
-        </button>
+        <div class="modal-block mw-260">
+          <h2>Add Restock</h2>
+          <div class="flex-row mb-05r">
+            <div class="mr-1r" for="restockQty">QTY:</div>
+            <input
+              type="number"
+              min="1"
+              class="form-control form-control-sm"
+              id="restockQty"
+              name="restockQty"
+              placeholder="1"
+            />
+          </div>
+          <div class="flex-row mb-05r">
+            <div class="mr-1r" for="dateRestocked">Date:</div>
+            <input
+              type="date"
+              id="dateRestocked"
+              class="form-control form-control-sm"
+              name="dateRestocked"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary" onclick="addRestock()">
+            Add Restock
+          </button>
+        </div>
       </div>
     </div>
   </div>
