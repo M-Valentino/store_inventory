@@ -256,3 +256,48 @@ const addSale = () => {
       console.error("Error:", error);
     });
 };
+
+const addRestock = () => {
+  const restockQty = document.getElementById("restockQty").value;
+  const dateRestocked = document.getElementById("dateRestocked").value;
+
+  if (!restockQty || restockQty < 1) {
+    return;
+  }
+
+  if (!dateRestocked) {
+    return;
+  }
+
+  const data = {
+    id: currProdOriginalInfo.id,
+    restockQty: restockQty,
+    dateRestocked: dateRestocked,
+  };
+
+  fetch("/data/restock/", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.message === "success") {
+        makeToast("Restock Added.");
+        openProductDetails(
+          currProdOriginalInfo.name,
+          currProdOriginalInfo.category,
+          currProdOriginalInfo.upc,
+          currProdOriginalInfo.qty + restockQty
+        );
+        handleInventoryDisplay();
+      } else {
+        console.error(`Error: ${result.message}`);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
