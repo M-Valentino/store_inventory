@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
-from data.models import Item, Sale
+from data.models import Item, Restock, Sale
 import re
 # TODO remove csrf_exempt when authentication implemented
 from django.views.decorators.csrf import csrf_exempt
@@ -166,6 +166,35 @@ def sale(request):
         )
 
         current_item.qty -= sold_qty_param
+        current_item.save()
+
+        return JsonResponse({'message': 'success'})
+
+    except Item.DoesNotExist:
+        return JsonResponse({'message': 'Item does not exist'}, status=404)
+    except ValueError:
+        return JsonResponse({'message': 'Invalid quantity provided'}, status=400)
+    except Exception as e:
+        return JsonResponse({'message': f'Error: {str(e)}'}, status=500)
+
+@csrf_exempt
+@require_http_methods(["PUT"])
+def restock(request):
+    try:
+        data = json.loads(request.body)
+        id_param = data.get('id')
+        restock_qty_param = int(data.get('restockQty'))
+        date_restocked_param = data.get('dateRestocked')
+
+        current_item = Item.objects.get(id=id_param)
+
+        Restock.objects.create(
+            product_id=id_param,
+            restock_qty=restock_qty_param,
+            date_restocked=date_restocked_param
+        )
+
+        current_item.qty += restock_qty_param
         current_item.save()
 
         return JsonResponse({'message': 'success'})

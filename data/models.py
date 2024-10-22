@@ -13,3 +13,8 @@ class Sale(models.Model):
     product_id = models.IntegerField()
     sold_qty = models.IntegerField()
     date_sold = models.DateTimeField(default=timezone.now)
+
+class Restock(models.Model):
+    product_id = models.IntegerField()
+    restock_qty = models.IntegerField()
+    date_restocked = models.DateTimeField(default=timezone.now)
