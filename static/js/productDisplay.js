@@ -82,6 +82,7 @@ const updateBasicInfo = async () => {
       ).innerHTML = `Error: ${json.message}`;
     } else {
       makeToast(`Updated ${currProdOriginalInfo.name}`);
+      currProdOriginalInfo.upc = newUPC;
       document.getElementById("basicInfoError").innerHTML = "";
       handleInventoryDisplay();
     }
