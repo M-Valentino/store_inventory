@@ -308,7 +308,7 @@ const makeSalesChart = () => {
   document.getElementById("my_dataviz").innerHTML = "";
 
   // set the dimensions and margins of the graph
-  var margin = { top: 20, right: 20, bottom: 20, left: 20 },
+  var margin = { top: 30, right: 20, bottom: 20, left: 20 },
     width = 800 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
@@ -320,6 +320,16 @@ const makeSalesChart = () => {
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  svg
+    .append("text")
+    .attr("x", width / 2)
+    .attr("y", 0 - margin.top / 2)
+    .attr("text-anchor", "middle")
+    .style("font-size", "16px")
+    .style("font-weight", "bolder")
+    .style("color", "#000000a0")
+    .text("Sales over Time");
 
   //Read the data
   d3.csv(
