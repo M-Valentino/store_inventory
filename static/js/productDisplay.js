@@ -290,7 +290,7 @@ const addRestock = () => {
           currProdOriginalInfo.name,
           currProdOriginalInfo.category,
           currProdOriginalInfo.upc,
-          currProdOriginalInfo.qty + restockQty
+          parseInt(currProdOriginalInfo.qty) + parseInt(restockQty)
         );
         handleInventoryDisplay();
       } else {
