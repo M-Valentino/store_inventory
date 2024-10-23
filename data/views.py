@@ -211,21 +211,38 @@ def restock(request):
 @require_http_methods(["GET"])
 def sales(request):
     product_id_param = request.GET.get('productId')
-    sales_data = Sale.objects.filter(product_id=product_id_param)
-
-    # Create an in-memory buffer to store the CSV data
+    sales_data = Sale.objects.filter(product_id=product_id_param).order_by('date_sold')
+    
     csv_buffer = StringIO()
     csv_writer = csv.writer(csv_buffer)
-
-    # Write the header row
     csv_writer.writerow(['date', 'sale'])
 
-    # Write data rows
-    for sale in sales_data:
-        csv_writer.writerow([sale.date_sold.strftime('%Y-%m-%d'), sale.sold_qty])
+    '''
+    These are accumulation variables. There can be multiple sales on the same day, but only one sales
+    value for one day is needed. Otherwise the rendered d3 chart will look unusual.
+    '''
+    current_duplicate_date = None
+    current_qty_total_for_date = 0
 
-    # Return the response with the CSV data
+    for i in range(len(sales_data)):
+        sale_date = sales_data[i].date_sold
+        sold_qty = sales_data[i].sold_qty
+
+        if sale_date != current_duplicate_date:
+            if current_duplicate_date is not None:
+                csv_writer.writerow([current_duplicate_date.strftime('%Y-%m-%d'), current_qty_total_for_date])
+            
+            # Reset for the new date
+            current_duplicate_date = sale_date
+            current_qty_total_for_date = sold_qty
+        else:
+            # Accumulate for the same date
+            current_qty_total_for_date += sold_qty
+
+    if current_duplicate_date is not None:
+        csv_writer.writerow([current_duplicate_date.strftime('%Y-%m-%d'), current_qty_total_for_date])
+
     response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="sales_data.csv"'
-
+    
     return response
