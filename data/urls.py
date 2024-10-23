@@ -8,5 +8,7 @@ urlpatterns = [
     path('extendedInfo/', views.extendedInfo, name="extendedInfo"),
     path('product/', views.product, name="product"),
     path('sale/', views.sale, name="sale"),
+    path('sale/', views.sale, name="sale"),
+    path('sales/', views.sales, name="sales"),
     path('restock/', views.restock, name="restock"),
 ]

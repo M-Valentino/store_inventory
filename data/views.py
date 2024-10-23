@@ -205,3 +205,19 @@ def restock(request):
         return JsonResponse({'message': 'Invalid quantity provided'}, status=400)
     except Exception as e:
         return JsonResponse({'message': f'Error: {str(e)}'}, status=500)
+    
+@require_http_methods(["GET"])
+def sales(request):
+    product_id_param = request.GET.get('productId')
+    sales_data = Sale.objects.filter(product_id=product_id_param)
+    
+    # Prepare the data in the format required by D3.js
+    response_data = [
+        {
+            'date': sale.date.strftime('%Y-%m-%d'),
+            'sales': sale.sales_count
+        }
+        for sale in sales_data
+    ]
+    
+    return JsonResponse(response_data, safe=False)
