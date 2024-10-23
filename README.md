@@ -6,7 +6,7 @@ This is store inventory management system website coded in Django. The back end 
 Products can be added to the system. All products have a description, a category, and a unique UPC code. The quantity of products (QTY) is updated with sales and restocks. Sales of products over time are rendered in charts.
 
 ### Finding Products
-Products can be sorted by name, QTY, and UPC. Products can be searched for by name or by UPC. Additionally, products can be filted by category.
+Products can be sorted by name, QTY, and UPC. Products can be searched for by name or by UPC. Additionally, products can be filtered by category.
 
 ## Screenshots
 <img width="550" alt="Screenshot 2024-10-23 at 2 08 12 AM" src="https://github.com/user-attachments/assets/438726b5-b5d4-4b65-8035-e67835eefd2f">
