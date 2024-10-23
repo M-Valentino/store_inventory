@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
 from data.models import Item, Restock, Sale
@@ -9,6 +9,8 @@ import base64
 from urllib.parse import unquote
 from django.utils import timezone
 import json
+import csv
+from io import StringIO
 
 def posts_list(request):
   return render(request, 'data/data_list.html')
@@ -210,14 +212,20 @@ def restock(request):
 def sales(request):
     product_id_param = request.GET.get('productId')
     sales_data = Sale.objects.filter(product_id=product_id_param)
-    
-    # Prepare the data in the format required by D3.js
-    response_data = [
-        {
-            'date': sale.date.strftime('%Y-%m-%d'),
-            'sales': sale.sales_count
-        }
-        for sale in sales_data
-    ]
-    
-    return JsonResponse(response_data, safe=False)
+
+    # Create an in-memory buffer to store the CSV data
+    csv_buffer = StringIO()
+    csv_writer = csv.writer(csv_buffer)
+
+    # Write the header row
+    csv_writer.writerow(['date', 'sale'])
+
+    # Write data rows
+    for sale in sales_data:
+        csv_writer.writerow([sale.date_sold.strftime('%Y-%m-%d'), sale.sold_qty])
+
+    # Return the response with the CSV data
+    response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="sales_data.csv"'
+
+    return response
