@@ -40,7 +40,7 @@ $ python manage.py add_items
 After the dependencies are finished installing, run the command below to start the server:
 ```sh
 $ python manage.py runserver
-```sh
+```
 
 You can now see the site running on `http://127.0.0.1:8000/` .
 
