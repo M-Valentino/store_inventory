@@ -84,18 +84,6 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully added 20 grocery items to the database.'))
 
         sales_data = [
-            
-            {"product_id": 0, "sold_qty": 10, "date_sold": datetime(2024, 1, 5)},
-            {"product_id": 0, "sold_qty": 8, "date_sold": datetime(2024, 2, 10)},
-            {"product_id": 0, "sold_qty": 12, "date_sold": datetime(2024, 3, 15)},
-            {"product_id": 0, "sold_qty": 9, "date_sold": datetime(2024, 4, 20)},
-            {"product_id": 0, "sold_qty": 14, "date_sold": datetime(2024, 5, 25)},
-            {"product_id": 0, "sold_qty": 11, "date_sold": datetime(2024, 6, 5)},
-            {"product_id": 0, "sold_qty": 13, "date_sold": datetime(2024, 7, 12)},
-            {"product_id": 0, "sold_qty": 10, "date_sold": datetime(2024, 8, 17)},
-            {"product_id": 0, "sold_qty": 15, "date_sold": datetime(2024, 9, 22)},
-            {"product_id": 0, "sold_qty": 9, "date_sold": datetime(2024, 9, 29)},
-
             {"product_id": 1, "sold_qty": 20, "date_sold": datetime(2024, 1, 7)},
             {"product_id": 1, "sold_qty": 15, "date_sold": datetime(2024, 2, 14)},
             {"product_id": 1, "sold_qty": 18, "date_sold": datetime(2024, 3, 22)},
@@ -303,6 +291,17 @@ class Command(BaseCommand):
             {"product_id": 19, "sold_qty": 7, "date_sold": datetime(2024, 7, 13)},
             {"product_id": 19, "sold_qty": 10, "date_sold": datetime(2024, 9, 2)},
             {"product_id": 19, "sold_qty": 13, "date_sold": datetime(2024, 9, 28)},
+
+            {"product_id": 20, "sold_qty": 10, "date_sold": datetime(2024, 1, 5)},
+            {"product_id": 20, "sold_qty": 8, "date_sold": datetime(2024, 2, 10)},
+            {"product_id": 20, "sold_qty": 12, "date_sold": datetime(2024, 3, 15)},
+            {"product_id": 20, "sold_qty": 9, "date_sold": datetime(2024, 4, 20)},
+            {"product_id": 20, "sold_qty": 14, "date_sold": datetime(2024, 5, 25)},
+            {"product_id": 20, "sold_qty": 11, "date_sold": datetime(2024, 6, 5)},
+            {"product_id": 20, "sold_qty": 13, "date_sold": datetime(2024, 7, 12)},
+            {"product_id": 20, "sold_qty": 10, "date_sold": datetime(2024, 8, 17)},
+            {"product_id": 20, "sold_qty": 15, "date_sold": datetime(2024, 9, 22)},
+            {"product_id": 20, "sold_qty": 9, "date_sold": datetime(2024, 9, 29)},
         ]
 
         for sale_data in sales_data:
