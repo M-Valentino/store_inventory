@@ -8,8 +8,17 @@ Products can be added to the system. All products have a description, a category
 ### Finding Products
 Products can be sorted by name, QTY, and UPC. Products can be searched for by name or by UPC. Additionally, products can be filtered by category.
 
+### Spreadsheet Export
+Product data from the current view of products displayed in the table can be exported to a CSV. The CSV will have the folowing data for each product:
+- Name
+- Category
+- UPC
+- QTY
+- Description
+- Date Added
+
 ## Screenshots
-<img width="550" alt="Screenshot 2024-10-23 at 2 08 12 AM" src="https://github.com/user-attachments/assets/438726b5-b5d4-4b65-8035-e67835eefd2f">
+<img width="550" alt="Screenshot 2024-10-26 at 7 32 26 PM" src="https://github.com/user-attachments/assets/0d511263-11ee-4996-a259-28e54fd4218b">
 
 <img width="550" alt="Screenshot 2024-10-23 at 2 09 17 AM" src="https://github.com/user-attachments/assets/9e1f8f93-9b24-4808-9b6c-2bf84c530f58">
 
