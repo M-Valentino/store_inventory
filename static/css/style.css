@@ -97,9 +97,6 @@ header h1 {
 }
 
 .control-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   background-color: #fff;
   border-radius: 0.5rem;
   padding: 0.5rem;

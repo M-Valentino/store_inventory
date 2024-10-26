@@ -37,7 +37,11 @@ const populateInventoryTable = (inventoryList) => {
   });
 };
 
-const fetchInventory = async (categories, searchTermObj) => {
+const fetchInventory = async (
+  categories,
+  searchTermObj,
+  returnDataType = "json"
+) => {
   try {
     const params = new URLSearchParams();
     if (categories.length > 0) {
@@ -47,6 +51,7 @@ const fetchInventory = async (categories, searchTermObj) => {
     params.append("searchTerm", searchTermObj.searchTerm);
     params.append("searchBy", searchTermObj.searchBy);
     params.append("sortBy", document.getElementById("sortByBtn").innerHTML);
+    params.append("returnDataType", returnDataType);
 
     const response = await fetch(`/data/inventory?${params.toString()}`, {
       method: "GET",
@@ -55,8 +60,13 @@ const fetchInventory = async (categories, searchTermObj) => {
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    const json = await response.json();
-    return json;
+    if (returnDataType === "json") {
+      const json = await response.json();
+      return json;
+    } else if ((returnDataType = "csv")) {
+      const csvTxt = await response.text();
+      return csvTxt;
+    }
   } catch (e) {
     console.warn(e);
   }
@@ -96,6 +106,25 @@ const handleInventoryDisplay = async () => {
   const checkedCategories = getCheckedCategories();
   const inventoryList = await fetchInventory(checkedCategories, searchTerm);
   populateInventoryTable(inventoryList);
+};
+
+const getSpreadsheet = async () => {
+  const searchTerm = getSearchTerm();
+  const checkedCategories = getCheckedCategories();
+  const inventoryListCSV = await fetchInventory(
+    checkedCategories,
+    searchTerm,
+    "csv"
+  );
+  const blob = new Blob([inventoryListCSV], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "inventory_list.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 };
 
 const debouncedHandleInventoryDisplay = debounce(handleInventoryDisplay, 300);

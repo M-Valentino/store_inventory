@@ -21,7 +21,7 @@ def inventory(request):
     search_term = request.GET.get('searchTerm')
     search_by = request.GET.get('searchBy')
     sort_by = request.GET.get('sortBy')
-    print(sort_by)
+    return_data_type = request.GET.get('returnDataType')
 
     categories = [cat.strip() for cat in categories_param.split(',')] if categories_param else []
 
@@ -46,8 +46,21 @@ def inventory(request):
     elif sort_by == "QTY Descending":
         items = items.order_by('-qty')
 
-    items_list = list(items.values("name", "category", "upc", "qty"))
-    return JsonResponse(items_list, safe=False)
+    if return_data_type == 'csv':
+        items_list = list(items.values("name", "category", "upc", "qty", "description", "date_added"))
+        csv_buffer = StringIO()
+        csv_writer = csv.writer(csv_buffer)
+        csv_writer.writerow(["name", "category", "upc", "qty", "description", "date_added"])
+
+        for i in items_list:
+            csv_writer.writerow([i['name'], i['category'], i['upc'], i['qty'], i['description'], i['date_added']])
+
+        response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="inventory_list.csv"'
+        return response
+    else:
+        items_list = list(items.values("name", "category", "upc", "qty"))
+        return JsonResponse(items_list, safe=False)
 
 @csrf_exempt
 @require_http_methods(["POST"])

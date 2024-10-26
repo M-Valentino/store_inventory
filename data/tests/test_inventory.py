@@ -25,7 +25,7 @@ class InventoryViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         json_response = response.json()
         self.assertEqual(len(json_response), 1, 'Expected only one item to be returned from searching by name with the search term \"Apples\".')
-        self.assertIn(json_response[0]['name'], 'Apples', 'Search term of \"Apples\" should return at item containing the name \"Apples\"')
+        self.assertIn('Apples', json_response[0]['name'], 'Search term of "Apples" should return an item containing the name "Apples"')
 
     def test_inventory_search_by_upc(self):
         response = self.client.get(reverse('inventory'), {'searchTerm': '123456789013', 'searchBy': 'upc'})
@@ -38,7 +38,7 @@ class InventoryViewTest(TestCase):
         response = self.client.get(reverse('inventory'), {'sortBy': 'Name Ascending'})
         self.assertEqual(response.status_code, 200)
         json_response = response.json()
-        self.assertEqual(json_response[0]['name'], 'Apples')
+        self.assertEqual(json_response[0]['name'], 'Apples (Gala)')
 
     def test_inventory_sort_by_qty_descending(self):
         response = self.client.get(reverse('inventory'), {'sortBy': 'QTY Descending'})
