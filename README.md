@@ -3,13 +3,13 @@ This is store inventory management system website coded in Django. The back end 
 
 ## Features
 ### Product Data
-Products can be added to the system. All products have a description, a category, and a unique UPC code. The quantity of products (QTY) is updated with sales and restocks. Sales of products over time are rendered in charts.
+Products can be added to the system. All products have a description, a category, and a unique UPC code. Scannable barcodes are dynamically generated based on UPC codes. The quantity of products (QTY) is updated with sales and restocks. Sales of products over time are rendered in charts.
 
 ### Finding Products
 Products can be sorted by name, QTY, and UPC. Products can be searched for by name or by UPC. Additionally, products can be filtered by category.
 
 ### Spreadsheet Export
-Product data from the current view of products displayed in the table can be exported to a CSV. The CSV will have the folowing data for each product:
+Product data from the current view of products displayed in the table can be exported to a CSV. The CSV will have the following data for each product:
 - Name
 - Category
 - UPC
