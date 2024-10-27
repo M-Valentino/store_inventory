@@ -20,7 +20,7 @@ Product data from the current view of products displayed in the table can be exp
 ## Screenshots
 <img width="550" alt="Screenshot 2024-10-26 at 7 32 26 PM" src="https://github.com/user-attachments/assets/0d511263-11ee-4996-a259-28e54fd4218b">
 
-<img width="550" alt="Screenshot 2024-10-23 at 2 09 17 AM" src="https://github.com/user-attachments/assets/9e1f8f93-9b24-4808-9b6c-2bf84c530f58">
+<img width="550" alt="Screenshot 2024-10-26 at 10 33 24 PM" src="https://github.com/user-attachments/assets/a5bb7dbf-d6fd-4a66-91d2-1f2f0f8ef9fe">
 
 ## Setup
 
