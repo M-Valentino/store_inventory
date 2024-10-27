@@ -50,7 +50,7 @@ const fetchInventory = async (
 
     params.append("searchTerm", searchTermObj.searchTerm);
     params.append("searchBy", searchTermObj.searchBy);
-    params.append("sortBy", document.getElementById("sortByBtn").innerHTML);
+    params.append("sortBy", document.getElementById("sortByBtn").innerHTML.trim());
     params.append("returnDataType", returnDataType);
 
     const response = await fetch(`/data/inventory?${params.toString()}`, {
