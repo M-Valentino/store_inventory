@@ -25,6 +25,7 @@ const openProductDetails = async (name, category, upc, qty) => {
   document.getElementById("productDescription").value = extendedInfo.message;
   currProdOriginalInfo.id = extendedInfo.id;
   makeSalesChart();
+  JsBarcode("#barcode", upc);
 };
 
 const closeProductDetails = () => {
@@ -83,8 +84,17 @@ const updateBasicInfo = async () => {
       ).innerHTML = `Error: ${json.message}`;
     } else {
       makeToast(`Updated ${currProdOriginalInfo.name}`);
-      currProdOriginalInfo.upc = newUPC;
       document.getElementById("basicInfoError").innerHTML = "";
+
+      currProdOriginalInfo.upc = newUPC;
+      currProdOriginalInfo.category = newCategory;
+      openProductDetails(
+        currProdOriginalInfo.name,
+        currProdOriginalInfo.category,
+        currProdOriginalInfo.upc,
+        currProdOriginalInfo.qty
+      );
+      
       handleInventoryDisplay();
     }
   } catch (e) {
