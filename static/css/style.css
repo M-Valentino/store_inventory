@@ -144,6 +144,7 @@ input[type="radio"] {
   overflow-y: scroll;
   background-color: #fff;
   border-top-left-radius: 0.5rem;
+  overscroll-behavior-y: none;
 }
 
 thead th {
