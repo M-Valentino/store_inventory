@@ -9,6 +9,7 @@ class BasicProductInfoViewTest(TestCase):
         Item.objects.create(name='Apples (Gala)', category='Produce', upc='123456789012', qty=10)
         Item.objects.create(name='Salmon Filets', category='Seafood', upc='123456789013', qty=5)
         Item.objects.create(name='Oranges', category='Produce', upc='123456789014', qty=20)
+        Item.objects.create(name='Chocolate Ice Cream', category='Frozen', upc='432567890123', qty=20)
 
     def test_update_valid_new_and_old_upc(self):
         url = reverse('basicProductInfo')
@@ -38,3 +39,18 @@ class BasicProductInfoViewTest(TestCase):
         self.assertEqual(response.status_code, 403)
         expected_response = {"message": "UPCs must be a number 12 digits long."}
         self.assertEqual(response.json(), expected_response, 'New UPCs must be 12 digits long')
+
+    def test_update_category(self):
+        url = reverse('basicProductInfo')
+        response = self.client.post(f"{url}?oldUpc=432567890123&newCategory=Pantry")
+        self.assertEqual(response.status_code, 200)
+        expected_response = {
+            "message": "success",
+            "updated_item": {
+                "name": 'Chocolate Ice Cream',
+                "category": 'Pantry',
+                "upc": "432567890123",
+                "qty": 20
+            }
+        }
+        self.assertEqual(response.json(), expected_response, 'A product with an existing UPC can be changed to a new category.')
