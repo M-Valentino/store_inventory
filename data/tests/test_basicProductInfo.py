@@ -32,3 +32,9 @@ class BasicProductInfoViewTest(TestCase):
         expected_response = {"message": "Product with the provided old UPC does not exist."}
         self.assertEqual(response.json(), expected_response, 'A saved UPC that does not exist cannot be updated to a new UPC.')
         
+    def test_update_upc_not_12_digits(self):
+        url = reverse('basicProductInfo')
+        response = self.client.post(f"{url}?oldUpc=123456789014&newUpc=22345978")
+        self.assertEqual(response.status_code, 403)
+        expected_response = {"message": "UPCs must be a number 12 digits long."}
+        self.assertEqual(response.json(), expected_response, 'New UPCs must be 12 digits long')
