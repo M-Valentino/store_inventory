@@ -30,3 +30,16 @@ class ExtendedInfoViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         expected_response = {"message": "success", "new_description": "Lorem ipsum. test test"}
         self.assertEqual(response.json(), expected_response, 'A product with an existing UPC can be updated with a new description.')
+
+    def test_update_description_too_long(self):
+        url = reverse('extendedInfo')
+        description = 'Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. Lorem ipsum. test test. '
+        encoded_description = base64.b64encode(quote(description).encode('utf-8')).decode('utf-8')
+        
+        response = self.client.post(
+            url, 
+            data={'upc': '123456789013', 'description': encoded_description}
+        )
+        self.assertEqual(response.status_code, 400)
+        expected_response = {"message": "Description is too long."}
+        self.assertEqual(response.json(), expected_response, 'A product with an existing UPC can be updated with a new description.')
