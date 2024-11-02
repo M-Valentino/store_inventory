@@ -42,4 +42,4 @@ class ExtendedInfoViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 400)
         expected_response = {"message": "Description is too long."}
-        self.assertEqual(response.json(), expected_response, 'A product with an existing UPC can be updated with a new description.')
+        self.assertEqual(response.json(), expected_response, 'A product with an existing UPC cannot be updated with a new description if it is too long.')
